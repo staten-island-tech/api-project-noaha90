@@ -1,0 +1,30 @@
+body{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgba(0,0,205,0.1);
+  color: rgb(100,200,200);
+  text-align: center;
+
+}
+audio{
+  height: 20px;
+}
+
+button{
+  height: 5%;
+  width: 10%;
+}
+
+.img{
+  border: 1px solid black;
+  /* height: 256;
+ filter: contrast(5%) blur(12px); */
+background-color: rgba(0,0,205,0.1);
+}
+
+
+
+.img:hover{
+  transition: .1s;
+  background-color: rgba(50,50,70,.2);
+  border-color: darkgoldenrod;
+}
