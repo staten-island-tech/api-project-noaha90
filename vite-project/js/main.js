@@ -9,7 +9,7 @@ const DOMSelectors = {
 
 DOMSelectors.button1.addEventListener("click", function(event) {
   event.preventDefault()
-  let input = Math.floor(Math.random() * 1018)+1;
+  let input = Math.floor(Math.random() * 1017)+1;
   getData(input)
 })
 
@@ -68,21 +68,63 @@ async function getData(input,name){
 }
 
 function randomize(response, data, thing, g){
-  let ran = Math.floor(Math.random() * Object.keys(thing).length);
   document.querySelector("h1").textContent = "The Pokemon Is: " + data.name.toUpperCase()
   DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
-  document.querySelector("h2").textContent = g.text + lastlayer(thing, ran)
+  whichFun(thing,g)
+
 }
 
 
 console.log(URL)
 
+let x = 1
+let y = "1"
 
 
-
-function lastlayer(thing, ran){
-  let x = "5"
-  console.log(x + "e")
-  return x
+function whichFun(thing,g,ran){
+  console.log(g)
+  console.log(thing)
+  if(typeof thing == ""){
+    textChange(g.text, "has none!")
+}
+if(typeof thing == typeof y || typeof thing == typeof x){
+  console.log("nob")
+  textChange(g.text, thing)
+}
+else{
+  let ran = Math.floor(Math.random() * Object.keys(thing).length);
+  awesome(thing[ran],g)
+}
 }
 
+function textChange(text,va){
+  console.log(va)
+  let comb = text + va
+  console.log(comb)
+  document.querySelector("h2").textContent = comb
+}
+
+function awesome(thing,g){
+  let i = 0
+  let nex = Object.values(thing)[i]
+  if(typeof nex != typeof y){
+    console.log(typeof nex + " " + typeof y)
+    awesome(nex,g)
+  }
+  else{
+    textChange(g.text, nex)
+    }
+}
+
+/*
+  if(typeof thing == typeof y){
+      let x = thing
+      console.log("woah")
+      return x
+  }
+  if(thing == ""){
+      let x = "No Held Item"
+      console.log("ea")
+      return x
+  }
+  */
