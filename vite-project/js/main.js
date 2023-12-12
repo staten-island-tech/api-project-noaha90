@@ -9,17 +9,15 @@ const DOMSelectors = {
 
 // LOOK AT https://pokeapi.co/api/v2/pokemon-species/184/
 
-
+let input = Math.floor(Math.random() * 648)+1;
 DOMSelectors.button1.addEventListener("click", function(event) {
   event.preventDefault()
-  let input = Math.floor(Math.random() * 648)+1;
   getData(input)
 })
 
 
 DOMSelectors.button2.addEventListener("click", function(event) {
   event.preventDefault()
-  let input = DOMSelectors.form.value
   getData(input)
 })
 
@@ -27,6 +25,7 @@ async function getData(input,name){
   let URL = `https://pokeapi.co/api/v2/pokemon/${input}`
   let areas = `https://pokeapi.co/api/v2/pokemon/${input}/encounters`
   let details = `https://pokeapi.co/api/v2/pokemon-species/${input}`
+  let evo = `https://pokeapi.co/api/v2/pokemon-species/${input}`
   try {
     console.log(input)
       const response = await fetch(URL)
@@ -36,6 +35,7 @@ async function getData(input,name){
       const response3 = await fetch(details)
       const data3 = await response3.json();
       let total = 0
+      console.log(Object.values(data3.egg_groups))
       data.stats.forEach(stat =>{
         total = total + stat.base_stat
       })
@@ -45,6 +45,11 @@ async function getData(input,name){
               text: "One Possible Type Of This Pokemon is ",
               route: ["type","name"],
           },
+          {
+            data: data3.egg_groups,
+            text: "This Pokemon's Egg Group Is: ",
+            route: []
+        },
           {
             data: total,
             text: "This Pokemon Has A Base Stat Total Of ",
@@ -81,6 +86,11 @@ async function getData(input,name){
               text: "One Possible Move Of This Pokemon is ",
               route: ["move","name"],
           },
+          {
+            data: data.moves,
+            text: "One Possible Move Of This Pokemon is ",
+            route: ["move","name"],
+        },
           {
               data: data.height/10,
               text: "The Height of This Pokemon, in Meters, is ",
