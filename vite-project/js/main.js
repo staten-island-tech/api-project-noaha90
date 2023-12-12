@@ -22,109 +22,90 @@ DOMSelectors.button2.addEventListener("click", function(event) {
 
 async function getData(input,name){
   let URL = `https://pokeapi.co/api/v2/pokemon/${input}`
+  let areas = `https://pokeapi.co/api/v2/pokemon/${input}/encounters`
   try {
+    console.log(input)
       const response = await fetch(URL)
       const data = await response.json();
+      const response2 = await fetch(areas)
+      const data2 = await response2.json();
       let choices = [
           {
               data: data.types,
               text: "One Possible Type Of This Pokemon is ",
+              route: ["type","name"],
           },
           {
-              data: Math.round(data.weight) * .1,
+            data: data2,
+            text: "One Route This Pokemon Can Be Found In Is: ",
+            route: ["location_area","name"],
+            alt: "In No Routes"
+        },
+          {
+              data: data.weight/10, 
               text: "The Weight of This Pokemon, in Kilograms, is ",
           },
           {
               data: data.abilities,
               text: "One Possible Ability Of This Pokemon is ",
+              route: ["ability","name"],
           },
           {
               data: data.moves,
               text: "One Possible Move Of This Pokemon is ",
+              route: ["move","name"],
           },
           {
-              data: (data.height) * .1,
+              data: data.height/10,
               text: "The Height of This Pokemon, in Meters, is ",
           },
           {
               data: data.held_items,
               text: "This Pokemon Can Be Found In The Wild Holding ",
+              route: ["item","name"],
+              alt: "None!"
           },
           {
               data: data.id,
               text: "The Pokemon's National Dex Number is ",
           },
       ]
-      let g = choices[Math.floor(Math.random() * choices.length)]
-      let thing = g.data
-      //can change this to be whatevers!!!!
-      randomize(response, data, thing, g)
-      let name = data.name
+       let pick = choices[Math.floor(Math.random() * choices.length)]
+      let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
+      if(typeof pick.data == "number"){
+       insert(pick.text,pick.data,data)
+      }
+      if(pick.data == ""){
+        insert(pick.text,pick.alt,data)
+      }
+      else{
+        console.log(pick.data[ran] + "elsed")
+        lastOne(pick.data[ran],pick,0,data)
+      }
   } catch (error) {
+    console.log(error)
       document.querySelector("h1").textContent = "Error!"
-      document.querySelector("h2").textContent = "Check If You Spelled The Name Of The Pokemon Correctly"
-  }
+        }
  
 }
 
-function randomize(response, data, thing, g){
-  document.querySelector("h1").textContent = "The Pokemon Is: " + data.name.toUpperCase()
-  DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
-  whichFun(thing,g)
+function lastOne(start,pick,fi,data){
+    Object.keys(start).forEach(key => {
+      if(key.includes(pick.route[fi])){
+        console.log(key)
+        let i = Object.keys(start).indexOf(key)
+        let next = Object.values(start)[i]
+        if(typeof next == "object"){
+          lastOne(next,pick,fi+1,data)
+        }
+        else{
+          insert(pick.text,next,data)
+        }}});}
 
-}
 
-
-console.log(URL)
-
-let x = 1
-let y = "1"
-
-
-function whichFun(thing,g,ran){
-  console.log(g)
-  console.log(thing)
-  if(typeof thing == ""){
-    textChange(g.text, "has none!")
-}
-if(typeof thing == typeof y || typeof thing == typeof x){
-  console.log("nob")
-  textChange(g.text, thing)
-}
-else{
-  let ran = Math.floor(Math.random() * Object.keys(thing).length);
-  awesome(thing[ran],g)
-}
-}
-
-function textChange(text,va){
-  console.log(va)
+function insert(text,va,data){
   let comb = text + va
-  console.log(comb)
-  document.querySelector("h2").textContent = comb
-}
+  document.querySelector("h1").textContent = comb
+    DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
+ }
 
-function awesome(thing,g){
-  let i = 0
-  let nex = Object.values(thing)[i]
-  if(typeof nex != typeof y){
-    console.log(typeof nex + " " + typeof y)
-    awesome(nex,g)
-  }
-  else{
-    textChange(g.text, nex)
-    }
-}
-
-/*
-  if(typeof thing == typeof y){
-      let x = thing
-      console.log("woah")
-      return x
-  }
-  if(thing == ""){
-      let x = "No Held Item"
-      console.log("ea")
-      return x
-  }
-  */
