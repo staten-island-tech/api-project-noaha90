@@ -26,18 +26,37 @@ DOMSelectors.button2.addEventListener("click", function(event) {
 async function getData(input,name){
   let URL = `https://pokeapi.co/api/v2/pokemon/${input}`
   let areas = `https://pokeapi.co/api/v2/pokemon/${input}/encounters`
+  let details = `https://pokeapi.co/api/v2/pokemon-species/${input}`
   try {
     console.log(input)
       const response = await fetch(URL)
       const data = await response.json();
       const response2 = await fetch(areas)
       const data2 = await response2.json();
+      const response3 = await fetch(details)
+      const data3 = await response3.json();
+      let total = 0
+      data.stats.forEach(stat =>{
+        total = total + stat.base_stat
+      })
       let choices = [
           {
               data: data.types,
               text: "One Possible Type Of This Pokemon is ",
               route: ["type","name"],
           },
+          {
+            data: total,
+            text: "This Pokemon Has A Base Stat Total Of ",
+        },
+        {
+          data: data3.is_baby,
+          text: "This Pokemon Is A Baby: ",
+      },
+          {
+            data: data3.color.name,
+            text: "This Pokemon's Color Is ",
+        },
           {
             data: data2,
             text: "One Route This Pokemon Can Be Found In Is: ",
@@ -75,17 +94,14 @@ async function getData(input,name){
       ]
        let pick = choices[Math.floor(Math.random() * choices.length)]
       let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
-      console.log(pick.data)
       console.log(typeof pick.data)
-      let x = 1
-      if(typeof pick.data == "number"){
+      if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean"){
        insert(pick.text,pick.data,data)
       }
       else if(pick.data == ""){
         insert(pick.alt,"",data)
       }
       else{
-        console.log(pick.data[ran])
         lastOne(pick.data[ran],pick,0,data)
       }
   } catch (error) {
@@ -98,7 +114,6 @@ async function getData(input,name){
 function lastOne(start,pick,fi,data){
     Object.keys(start).forEach(key => {
       if(key.includes(pick.route[fi])){
-        console.log(key)
         let i = Object.keys(start).indexOf(key)
         let next = Object.values(start)[i]
         if(typeof next == "object"){
@@ -111,7 +126,8 @@ function lastOne(start,pick,fi,data){
 
 function insert(text,va,data){
   let comb = text + va
-  document.querySelector("h1").textContent = comb
+  console.log(comb.replace("-"," "))
+  document.querySelector("h1").textContent = comb.replace("-"," ")
     DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
  }
 
