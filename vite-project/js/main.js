@@ -7,6 +7,9 @@ const DOMSelectors = {
 
 
 
+LOOK AT https://pokeapi.co/api/v2/pokemon-species/184/
+
+
 DOMSelectors.button1.addEventListener("click", function(event) {
   event.preventDefault()
   let input = Math.floor(Math.random() * 1017)+1;
@@ -39,7 +42,7 @@ async function getData(input,name){
             data: data2,
             text: "One Route This Pokemon Can Be Found In Is: ",
             route: ["location_area","name"],
-            alt: "In No Routes"
+            alt: "This Pokemon Cannot Be Found In The Wild",
         },
           {
               data: data.weight/10, 
@@ -63,7 +66,7 @@ async function getData(input,name){
               data: data.held_items,
               text: "This Pokemon Can Be Found In The Wild Holding ",
               route: ["item","name"],
-              alt: "None!"
+              alt: "This Pokemon Cannot Hold A Held Item In The Wild",
           },
           {
               data: data.id,
@@ -74,14 +77,15 @@ async function getData(input,name){
       let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
       console.log(pick.data)
       console.log(typeof pick.data)
+      let x = 1
       if(typeof pick.data == "number"){
        insert(pick.text,pick.data,data)
       }
-      if(pick.data == ""){
-        insert(pick.text,pick.alt,data)
+      else if(pick.data == ""){
+        insert(pick.alt,"",data)
       }
       else{
-        console.log(pick.data[ran] + "elsed")
+        console.log(pick.data[ran])
         lastOne(pick.data[ran],pick,0,data)
       }
   } catch (error) {
