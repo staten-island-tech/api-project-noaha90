@@ -7,7 +7,7 @@ const DOMSelectors = {
 
 
 
-LOOK AT https://pokeapi.co/api/v2/pokemon-species/184/
+// LOOK AT https://pokeapi.co/api/v2/pokemon-species/184/
 
 
 DOMSelectors.button1.addEventListener("click", function(event) {
