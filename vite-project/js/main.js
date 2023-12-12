@@ -72,6 +72,8 @@ async function getData(input,name){
       ]
        let pick = choices[Math.floor(Math.random() * choices.length)]
       let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
+      console.log(pick.data)
+      console.log(typeof pick.data)
       if(typeof pick.data == "number"){
        insert(pick.text,pick.data,data)
       }
