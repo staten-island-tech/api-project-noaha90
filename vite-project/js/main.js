@@ -12,7 +12,7 @@ const DOMSelectors = {
 
 DOMSelectors.button1.addEventListener("click", function(event) {
   event.preventDefault()
-  let input = Math.floor(Math.random() * 1017)+1;
+  let input = Math.floor(Math.random() * 648)+1;
   getData(input)
 })
 
@@ -53,6 +53,10 @@ async function getData(input,name){
           data: data3.is_baby,
           text: "This Pokemon Is A Baby: ",
       },
+      {
+        data: data3.is_baby,
+        text: "This Pokemon Is A Baby: ",
+    },
           {
             data: data3.color.name,
             text: "This Pokemon's Color Is ",
