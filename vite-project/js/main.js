@@ -18,7 +18,13 @@ DOMSelectors.button1.addEventListener("click", function(event) {
 
 DOMSelectors.button2.addEventListener("click", function(event) {
   event.preventDefault()
-  getData(input)
+  if(DOMSelectors.form.value == "qw"){
+    console.log("win")
+    input = Math.floor(Math.random() * 648)+1;
+  } 
+  else{
+    getData(input)
+  }
 })
 
 async function getData(input,name){
@@ -35,7 +41,16 @@ async function getData(input,name){
       const response3 = await fetch(details)
       const data3 = await response3.json();
       let total = 0
-      console.log(Object.values(data3.egg_groups))
+      cool(data,data2,data3,total)
+  } catch (error) {
+    console.log(error)
+      document.querySelector("h1").textContent = "Error!"
+        }
+ 
+}
+
+function cool(data,data2,data3,total){
+  console.log(Object.values(data3.egg_groups))
       data.stats.forEach(stat =>{
         total = total + stat.base_stat
       })
@@ -118,11 +133,6 @@ async function getData(input,name){
       else{
         lastOne(pick.data[ran],pick,0,data)
       }
-  } catch (error) {
-    console.log(error)
-      document.querySelector("h1").textContent = "Error!"
-        }
- 
 }
 
 function lastOne(start,pick,fi,data){
