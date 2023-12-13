@@ -3,31 +3,30 @@ const DOMSelectors = {
   button2: document.getElementById("button2"),
   form: document.getElementById("value"),
   gal: document.getElementById("gal"),
+  all: document.getElementById("all"),
 }
 
 
 
 // LOOK AT https://pokeapi.co/api/v2/pokemon-species/184/
 
-let input = Math.floor(Math.random() * 648)+1;
+let input = Math.floor(Math.random() * 648) + 1
+
+function events(){
+  input = input = Math.floor(Math.random() * 648) + 1
 DOMSelectors.button1.addEventListener("click", function(event) {
   event.preventDefault()
-  getData(input)
+  DOMSelectors.button1.remove()
 })
-
 
 DOMSelectors.button2.addEventListener("click", function(event) {
   event.preventDefault()
-  if(DOMSelectors.form.value == "qw"){
-    console.log("win")
-    input = Math.floor(Math.random() * 648)+1;
-  } 
-  else{
-    getData(input)
-  }
+    getData(input,DOMSelectors.form.value)
 })
+}
 
-async function getData(input,name){
+events()
+async function getData(input,guess){
   let URL = `https://pokeapi.co/api/v2/pokemon/${input}`
   let areas = `https://pokeapi.co/api/v2/pokemon/${input}/encounters`
   let details = `https://pokeapi.co/api/v2/pokemon-species/${input}`
@@ -41,7 +40,8 @@ async function getData(input,name){
       const response3 = await fetch(details)
       const data3 = await response3.json();
       let total = 0
-      cool(data,data2,data3,total)
+      
+      cool(data,data2,data3,total,guess)
   } catch (error) {
     console.log(error)
       document.querySelector("h1").textContent = "Error!"
@@ -49,7 +49,7 @@ async function getData(input,name){
  
 }
 
-function cool(data,data2,data3,total){
+function cool(data,data2,data3,total,guess){
   console.log(Object.values(data3.egg_groups))
       data.stats.forEach(stat =>{
         total = total + stat.base_stat
@@ -63,7 +63,7 @@ function cool(data,data2,data3,total){
           {
             data: data3.egg_groups,
             text: "This Pokemon's Egg Group Is: ",
-            route: []
+            route: ["name"]
         },
           {
             data: total,
@@ -121,9 +121,14 @@ function cool(data,data2,data3,total){
               text: "The Pokemon's National Dex Number is ",
           },
       ]
-       let pick = choices[Math.floor(Math.random() * choices.length)]
+      if(guess == data.name){
+        document.querySelector("h1").textContent = "You Won! The Pokemon Is " + data.name
+        input = Math.floor(Math.random() * 648) + 1
+        res(data.name)
+      }
+      else{
+      let pick = choices[Math.floor(Math.random() * choices.length)]
       let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
-      console.log(typeof pick.data)
       if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean"){
        insert(pick.text,pick.data,data)
       }
@@ -133,6 +138,7 @@ function cool(data,data2,data3,total){
       else{
         lastOne(pick.data[ran],pick,0,data)
       }
+}
 }
 
 function lastOne(start,pick,fi,data){
@@ -146,12 +152,62 @@ function lastOne(start,pick,fi,data){
         else{
           insert(pick.text,next,data)
         }}});}
-
+let pokeList = []
 
 function insert(text,va,data){
   let comb = text + va
-  console.log(comb.replace("-"," "))
+  console.log(va)
   document.querySelector("h1").textContent = comb.replace("-"," ")
     DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
  }
 
+function res(name){
+  document.getElementById("every").innerHTML = "";
+  document.getElementById("every").insertAdjacentHTML("beforebegin", ` <h1>You Won! The Pokemon Was ${name}</h1>
+  <form class="newgame">
+      <button id="new">New Game?</button>
+  </form>`)
+  document.getElementById("new").addEventListener("click", function(event) {
+    event.preventDefault()
+    document.getElementById("every").insertAdjacentHTML("beforebegin", `<form>
+    <label for="fname">Name:</label><br>
+    <input type="text" id="value"><br>
+    <input type="submit" id="button2">
+  </form>
+<div class="container">
+<h1>Press The Button Below To Start!</h1>
+</div>
+<form class="cool">
+    <button id="start">Start Game!</button>
+</form>
+<div id="gal">
+   
+</div>`)
+console.log("eaeae")
+events()
+  })
+ 
+}
+//  async function fill(){
+//   for(let x=649;x>0;x--){
+//     console.log(x)
+//       let URL = `https://pokeapi.co/api/v2/pokemon/${x}`
+//       const response = await fetch(URL)
+//       const data = await response.json();
+//       pokeList.push(data)
+//       DOMSelectors.gal.insertAdjacentHTML("afterend", `<span class="imgbor" id="${data.name}"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
+//   }
+//   console.log(pokeList)
+//   filler()
+//  }
+
+//  function filler(){
+//   document.querySelectorAll(".imgbor").forEach(img =>{
+//     if(img.id == "pikachu"){
+//       console.log(img.id)
+//     }
+//   } )
+//  }
+
+
+ console.log("te")
