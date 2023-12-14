@@ -15,20 +15,20 @@ function restart(){
   lives = 6
 DOMSelectors.every.innerHTML = ""
 document.getElementById("hints").innerHTML = ""
-document.getElementById("hints").innerHTML = ""
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>Press The Button Below To Start!</h1>
   <form class="cool">
   <button id="start">Start Game!</button>
   </form>`)
 document.getElementById("start").addEventListener("click", function(event) {
-  console.log("clicked")
-  getData(input)
+  event.preventDefault()
+  dropdown()
   event.preventDefault()
   document.getElementById("every").innerHTML = ""
   DOMSelectors.every.insertAdjacentHTML("beforeend", html)
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
+    console.log(document.getElementById("dropdown").value)
     getData(input,document.getElementById("value").value)
 })
 })
@@ -58,7 +58,7 @@ async function getData(input,guess){
       cool(data,data2,data3,total,guess)
   } catch (error) { 
     console.log(error)
-      document.querySelector("h1").textContent = "Error!"
+
         }
  
 }
@@ -67,12 +67,21 @@ function cool(data,data2,data3,total,guess){
       data.stats.forEach(stat =>{
         total = total + stat.base_stat
       })
+      console.log(guess)
       let choices = [
+        {
+          data: data3.evolves_from_species != null,
+          text: "This Pokemon's Has Evolved: ",
+      },
           {
-              data: data.types,
-              text: "One Possible Type Of This Pokemon is ",
-              route: ["type","name"],
+              data: data3.shape.name,
+              text: "This Pokemon's Shape Is: ",
           },
+          {
+            data: data.types,
+            text: "One Possible Type Of This Pokemon is ",
+            route: ["type","name"],
+        },
           {
             data: data3.egg_groups,
             text: "This Pokemon's Egg Group Is: ",
@@ -82,10 +91,6 @@ function cool(data,data2,data3,total,guess){
             data: total,
             text: "This Pokemon Has A Base Stat Total Of ",
         },
-        {
-          data: data3.is_baby,
-          text: "This Pokemon Is A Baby: ",
-      },
       {
         data: data3.is_baby,
         text: "This Pokemon Is A Baby: ",
@@ -101,24 +106,19 @@ function cool(data,data2,data3,total,guess){
             alt: "This Pokemon Cannot Be Found In The Wild",
         },
           {
-              data: data.weight/10, 
+              data: data.weight/10,   
               text: "The Weight of This Pokemon, in Kilograms, is ",
           },
           {
               data: data.abilities,
               text: "One Possible Ability Of This Pokemon is ",
-              route: ["ability","name"],
+              route: ["ability","name"],  
           },
           {
               data: data.moves,
               text: "One Possible Move Of This Pokemon is ",
               route: ["move","name"],
           },
-          {
-            data: data.moves,
-            text: "One Possible Move Of This Pokemon is ",
-            route: ["move","name"],
-        },
           {
               data: data.height/10,
               text: "The Height of This Pokemon, in Meters, is ",
@@ -134,16 +134,17 @@ function cool(data,data2,data3,total,guess){
               text: "The Pokemon's National Dex Number is ",
           },
       ]
-      if(guess == data.name){
+      if(guess === data.name){
         newGame("You Won! The Pokemon Is",data)
       }
-else{
-  if(lives < 0){
+  else if(lives < 0){
     newGame("You Lost :(. The Pokemon Was",data)
   }
+  else{
     let pick = choices[Math.floor(Math.random() * choices.length)]
     let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
-    if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean"){
+    if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean" || pick.data == "true"){
+      console.log(pick.data)
       insert(pick.text,pick.data,data)
     }
     else if(pick.data == ""){
@@ -152,13 +153,23 @@ else{
     else{
     lastOne(pick.data[ran],pick,0,data)
   }
-  }
+}
 }
 
 function newGame(text,data){
   DOMSelectors.every.innerHTML = ""
+  document.getElementById("lives").innerHTML = ""
+  document.getElementById("hints").innerHTML = ""
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${data.name}</h1> `) 
   document.getElementById("every").insertAdjacentHTML("beforeend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
+  DOMSelectors.every.insertAdjacentHTML("beforeend", `
+  <form class="cool">
+  <button id="again">Play Again?</button>
+  </form>`)
+document.getElementById("again").addEventListener("click", function(event) {
+  event.preventDefault()
+  restart()
+})
   input = Math.floor(Math.random()* 648) + 1
 }
 
@@ -178,17 +189,13 @@ function lastOne(start,pick,fi,data){
 
 
 function insert(text,va,data){
-  console.log("insert" + lives)
   let comb = text + va
   if(usedHints.includes(comb) == false){
-    if(lives < 6){
   document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb}</h1>`)
  lives--
+ document.getElementsByClassName(".livetext").innerHTML
+ document.getElementById("lives").textContent = lives + 2
  usedHints.push(comb)
-}
-  else{
-    lives--
-  }
 }
 else{
   getData(input)
@@ -196,10 +203,28 @@ else{
 }
 
 
+let pokemonList = []
 
+async function dropdown(pkmn){
+  console.log("epic")
+  try {
+    for(let f=1;f<650;f++){
+      let URL = `https://pokeapi.co/api/v2/pokemon/${f}`
+      const response = await fetch(URL)
+      const data = await response.json();
+      pokemonList.push(data.name)
+      }
+      pokemonList.sort()
+      pokemonList.forEach(pokemon => {
+        document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon}</option>`) 
+      })
+      document.getElementById("dropdown").addEventListener("click", function(event) {document.getElementById("value").value = document.getElementById("dropdown").value })
+      getData(input)
+  } catch (error) { 
+    console.log(error)
+        }
 
-
-
+      }
 
 
 
@@ -228,7 +253,6 @@ else{
 
  async function fill(){
   for(let x=649;x>0;x--){
-    console.log(x)
       let URL = `https://pokeapi.co/api/v2/pokemon/${x}`
       const response = await fetch(URL)
       const data = await response.json();
@@ -238,10 +262,8 @@ else{
  }
 
  function filler(){
-  console.log("Ea")
   document.querySelectorAll(".imgbor").forEach(img =>{
     if(img.id == "pikachu"){
-      console.log(img.id)
     }
   } )
  }
