@@ -14,6 +14,7 @@ function restart(){
   usedHints = []
   lives = 6
 DOMSelectors.every.innerHTML = ""
+DOMSelectors.gal.innerHTML = ""
 document.getElementById("hints").innerHTML = ""
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>Press The Button Below To Start!</h1>
@@ -22,10 +23,9 @@ DOMSelectors.every.insertAdjacentHTML("beforeend", `
   </form>`)
 document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
-  dropdown()
-  event.preventDefault()
   document.getElementById("every").innerHTML = ""
   DOMSelectors.every.insertAdjacentHTML("beforeend", html)
+  dropSer()
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
     console.log(document.getElementById("dropdown").value)
@@ -33,6 +33,7 @@ document.getElementById("start").addEventListener("click", function(event) {
 })
 })
 }
+
 
 let input = Math.floor(Math.random() * 648) + 1
 let lives = 6
@@ -83,9 +84,8 @@ function cool(data,data2,data3,total,guess){
             route: ["type","name"],
         },
           {
-            data: data3.egg_groups,
-            text: "This Pokemon's Egg Group Is: ",
-            route: ["name"]
+            data: data3.capture_rate,
+            text: "This Pokemon Has A Capture Rate Of: ",
         },
           {
             data: total,
@@ -134,6 +134,7 @@ function cool(data,data2,data3,total,guess){
               text: "The Pokemon's National Dex Number is ",
           },
       ]
+      console.log(data.name)
       if(guess === data.name){
         newGame("You Won! The Pokemon Is",data)
       }
@@ -142,15 +143,15 @@ function cool(data,data2,data3,total,guess){
   }
   else{
     let pick = choices[Math.floor(Math.random() * choices.length)]
-    let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
     if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean" || pick.data == "true"){
-      console.log(pick.data)
+      console.log(pick.data)  
       insert(pick.text,pick.data,data)
     }
     else if(pick.data == ""){
       insert(pick.alt,"",data)
     }
     else{
+    let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
     lastOne(pick.data[ran],pick,0,data)
   }
 }
@@ -161,8 +162,8 @@ function newGame(text,data){
   document.getElementById("lives").innerHTML = ""
   document.getElementById("hints").innerHTML = ""
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${data.name}</h1> `) 
-  document.getElementById("every").insertAdjacentHTML("beforeend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
-  DOMSelectors.every.insertAdjacentHTML("beforeend", `
+  document.getElementById("gal").insertAdjacentHTML("beforeend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></span>`)
+ DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <form class="cool">
   <button id="again">Play Again?</button>
   </form>`)
@@ -205,7 +206,7 @@ else{
 
 let pokemonList = []
 
-async function dropdown(pkmn){
+async function collect(){
   console.log("epic")
   try {
     for(let f=1;f<650;f++){
@@ -213,22 +214,28 @@ async function dropdown(pkmn){
       const response = await fetch(URL)
       const data = await response.json();
       pokemonList.push(data.name)
-      }
+      console.log(data.name)
       pokemonList.sort()
-      pokemonList.forEach(pokemon => {
-        document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon}</option>`) 
-      })
-      document.getElementById("dropdown").addEventListener("click", function(event) {document.getElementById("value").value = document.getElementById("dropdown").value })
-      getData(input)
-  } catch (error) { 
-    console.log(error)
-        }
-
       }
+    }
+    catch (error) { 
+      console.log(error)
+          }}
+
+          collect()
+
+function dropSer(){
+  console.log("ea")
+    pokemonList.forEach(pokemon => {
+      document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon.toUpperCase()}</option>`) 
+    })
+    document.getElementById("dropdown").addEventListener("click", function(event) {document.getElementById("value").value = document.getElementById("dropdown").value })
+    getData(input)
+}
 
 
 
-
+console.log(pokemonList)
 
 
 
