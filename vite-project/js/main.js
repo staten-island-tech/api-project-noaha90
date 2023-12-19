@@ -8,7 +8,7 @@ const DOMSelectors = {
 }
 
 let html = DOMSelectors.every.innerHTML
-
+let completeList = false
 
 function restart(){
   usedHints = []
@@ -25,7 +25,8 @@ document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
   document.getElementById("every").innerHTML = ""
   DOMSelectors.every.insertAdjacentHTML("beforeend", html)
-  dropSer()
+  dropSer() 
+  getData(input)
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
     console.log(document.getElementById("dropdown").value)
@@ -162,7 +163,7 @@ function newGame(text,data){
   document.getElementById("lives").innerHTML = ""
   document.getElementById("hints").innerHTML = ""
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${data.name}</h1> `) 
-  document.getElementById("gal").insertAdjacentHTML("beforeend", `<span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></span>`)
+  document.getElementById("gal").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${data.name}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></a></span>`)
  DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <form class="cool">
   <button id="again">Play Again?</button>
@@ -206,7 +207,7 @@ else{
 
 let pokemonList = []
 
-async function collect(){
+ async function collect(){
   console.log("epic")
   try {
     for(let f=1;f<650;f++){
@@ -217,20 +218,24 @@ async function collect(){
       console.log(data.name)
       pokemonList.sort()
       }
+      dropSer()
     }
     catch (error) { 
-      console.log(error)
+      console.log("eaeaea")
           }}
 
           collect()
 
-function dropSer(){
-  console.log("ea")
+async function dropSer(){
+ try{ document.getElementById("dropdown").innerHTML = ""
     pokemonList.forEach(pokemon => {
       document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon.toUpperCase()}</option>`) 
     })
     document.getElementById("dropdown").addEventListener("click", function(event) {document.getElementById("value").value = document.getElementById("dropdown").value })
-    getData(input)
+  } 
+  catch (error) { 
+    console.log("Waiting For Game Start...")
+        }
 }
 
 
@@ -246,34 +251,6 @@ console.log(pokemonList)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
- async function fill(){
-  for(let x=649;x>0;x--){
-      let URL = `https://pokeapi.co/api/v2/pokemon/${x}`
-      const response = await fetch(URL)
-      const data = await response.json();
-      document.getElementById("hints").insertAdjacentHTML("beforebegin", `<span class="imgbor" id="${data.name}"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img></span>`)
-  }
-  filler()
- }
-
- function filler(){
-  document.querySelectorAll(".imgbor").forEach(img =>{
-    if(img.id == "pikachu"){
-    }
-  } )
- }
 
 
 restart()
