@@ -10,14 +10,16 @@ const DOMSelectors = {
 let html = DOMSelectors.every.innerHTML
 let completeList = false
 
-function restart(){
+function restart(text,pokeName,id){
   usedHints = []
   lives = 6
 DOMSelectors.every.innerHTML = ""
-DOMSelectors.gal.innerHTML = ""
+DOMSelectors.gal.innerHTML = "" 
+DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${id}.png</img></a></span>
+`)
 document.getElementById("hints").innerHTML = ""
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
-  <h1>Press The Button Below To Start!</h1>
+  <h1>${text} </h1>
   <form class="cool">
   <button id="start">Start Game!</button>
   </form>`)
@@ -26,7 +28,9 @@ document.getElementById("start").addEventListener("click", function(event) {
   document.getElementById("every").innerHTML = ""
   DOMSelectors.every.insertAdjacentHTML("beforeend", html)
   dropSer() 
+  DOMSelectors.gal.innerHTML = ""
   getData(input)
+  stuff.style.display = "block";
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
     console.log(document.getElementById("dropdown").value)
@@ -159,20 +163,22 @@ function cool(data,data2,data3,total,guess){
 }
 
 function newGame(text,data){
+  let complete = text + " " + data.name
+  stuff.style.display = "none";
   DOMSelectors.every.innerHTML = ""
   document.getElementById("lives").innerHTML = ""
   document.getElementById("hints").innerHTML = ""
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${data.name}</h1> `) 
-  document.getElementById("gal").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${data.name}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></a></span>`)
- DOMSelectors.every.insertAdjacentHTML("beforeend", `
-  <form class="cool">
-  <button id="again">Play Again?</button>
-  </form>`)
-document.getElementById("again").addEventListener("click", function(event) {
-  event.preventDefault()
-  restart()
-})
   input = Math.floor(Math.random()* 648) + 1
+  if(data.name == "porygon-z"||data.name == "mr-mime"){
+    let pokeName = data.name
+    restart(complete,pokeName,data.id)
+  }
+  else{
+    let pokeName = data.name.split('-')
+    restart(complete,pokeName,data.id)
+  // document.getElementById("gal").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></a></span>`)
+  }
 }
 
 
@@ -216,8 +222,8 @@ let pokemonList = []
       const data = await response.json();
       pokemonList.push(data.name)
       console.log(data.name)
-      pokemonList.sort()
       }
+      pokemonList.sort()
       dropSer()
     }
     catch (error) { 
@@ -253,4 +259,4 @@ console.log(pokemonList)
 
 
 
-restart()
+restart("Press The Button Below To Start!","azumarill",184)
