@@ -1,3 +1,22 @@
+import {array} from "./array";
+
+
+async function test(input){
+  try{
+  const response = await fetch(input)
+  const data = await response.json(); 
+  console.log(data)
+}
+catch(error){
+  console.log(error)
+}
+}
+
+
+test(array[0].u)
+
+
+
 const DOMSelectors = {
   button1: document.getElementById("start"),
   button2: document.getElementById("button2"),
@@ -7,6 +26,7 @@ const DOMSelectors = {
   every: document.getElementById("every"),
 }
 
+stuff.style.display = "none";
 let html = DOMSelectors.every.innerHTML
 let completeList = false
 
@@ -15,8 +35,8 @@ function restart(text,pokeName,id){
   lives = 6
 DOMSelectors.every.innerHTML = ""
 DOMSelectors.gal.innerHTML = "" 
-DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${id}.png</img></a></span>
-`)
+if(id != null){
+DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"></img></a>`)}
 document.getElementById("hints").innerHTML = ""
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>${text} </h1>
@@ -29,7 +49,7 @@ document.getElementById("start").addEventListener("click", function(event) {
   DOMSelectors.every.insertAdjacentHTML("beforeend", html)
   dropSer() 
   DOMSelectors.gal.innerHTML = ""
-  getData(input)
+    getData(input)
   stuff.style.display = "block";
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
@@ -70,7 +90,7 @@ async function getData(input,guess){
 }
 
 function cool(data,data2,data3,total,guess){
-      data.stats.forEach(stat =>{
+    data.stats.forEach(stat =>{
         total = total + stat.base_stat
       })
       console.log(guess)
@@ -97,8 +117,9 @@ function cool(data,data2,data3,total,guess){
             text: "This Pokemon Has A Base Stat Total Of ",
         },
       {
-        data: data3.is_baby,
-        text: "This Pokemon Is A Baby: ",
+        data: data3.flavor_text_entries,
+        text: "Entry: ",
+        route: ["flavor_text"]
     },
           {
             data: data3.color.name,
@@ -157,6 +178,7 @@ function cool(data,data2,data3,total,guess){
     }
     else{
     let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
+    console.log(pick.data[ran])
     lastOne(pick.data[ran],pick,0,data)
   }
 }
@@ -221,7 +243,6 @@ let pokemonList = []
       const response = await fetch(URL)
       const data = await response.json();
       pokemonList.push(data.name)
-      console.log(data.name)
       }
       pokemonList.sort()
       dropSer()
@@ -259,4 +280,4 @@ console.log(pokemonList)
 
 
 
-restart("Press The Button Below To Start!","azumarill",184)
+restart("Press The Button Below To Start!","azumaril",null)

@@ -5,7 +5,7 @@
   background-size: cover;
   color: rgb(10,20,200);
   text-align: center;
-
+display:flexbox;
 } 
 
 button{
@@ -15,6 +15,7 @@ button{
 }
 
 .img{
+  justify-self:inherit;
   border: 1px solid black;
    height: 128px;
  /* filter: contrast(5%) blur(12px); */
@@ -28,29 +29,37 @@ background-color: rgba(0,0,205,0.1);
   border-color: darkgoldenrod;
 }
 
-.hinttext{
- text-align: center;
-}
+
 
 #dropdown, #value{
   color: gray;
   text-align: center;
 }
 
-#lives{
-  font-size: 100px;
-  left: 0%;
-}
-
-#hints{
-  font-size: 10px;
-  right: 0%;
-}
-
 #hints,#lives{
-  background-color: rgba(255,255,255,.2);
+  border: 4px black solid;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,.9);
   width: 25%;
   position: absolute;
   min-height: 75%;
   
 }
+
+#lives{
+  font-size: 100px;
+  left: 0%;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+#hints{
+  font-size: 10px;
+  right: 0%;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+
+
+
