@@ -1,7 +1,12 @@
 import {array} from "./array";
+import { DOMSelectors } from "./doms";
 
+
+let wins = 0
+let losses = 0
 
 async function test(choice,guess){
+  console.log(choice)
   console.log(input)
   try{
   const response = await fetch(choice.u + input + choice.back)
@@ -10,13 +15,15 @@ async function test(choice,guess){
   const data2 = await response2.json(); 
   if(guess == data2.name){
     newGame("Win: ",data.name,data.id)
+    wins++
   }
   else if(lives == 0){
     newGame("Lose: ",data2.name,data.id)
+    losses++
   }
   else{
     if(data == ""){
-      insert(choice.alttext,"")
+      insert(choice.alttext,"","")
     }
     else{
     lastJuan(data,choice,0)
@@ -29,6 +36,7 @@ catch(error){
 
 
 function lastJuan(start,choice,p){ 
+  console.log(start)
   if(choice.route[p] != undefined){
     if(choice.route[p] == "random"){
       if(choice.rand == "start"){
@@ -48,17 +56,17 @@ function lastJuan(start,choice,p){
       let next = Object.values(start)[Object.keys(start).indexOf(key)]
       lastJuan(next,choice,p+1)}})}
 else{
-  insert(choice.text,start)
+  insert(choice.text,start,choice.tend)
 }
 }
 
 
 
 
-function insert(text,va,data){
-let comb = text + va
+function insert(text,va,end){
+let comb = text + va + end
 if(usedHints.includes(comb) == false){
-document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb}</h1>`)
+document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb.replaceAll('-', ' ').toUpperCase()}</h1>`)
 lives--
 document.getElementsByClassName(".livetext").innerHTML
 document.getElementById("lives").textContent = lives + 1
@@ -70,29 +78,17 @@ test(array[Math.floor(Math.random()* array.length)],document.getElementById("val
 }
         
 
-
-const DOMSelectors = {
-  button1: document.getElementById("start"),
-  button2: document.getElementById("button2"),
-  form: document.getElementById("value"),
-  gal: document.getElementById("gal"),
-  hints: document.getElementById("hints"),
-  every: document.getElementById("every"),
-}
-
 stuff.style.display = "none";
 let html = DOMSelectors.every.innerHTML
 let completeList = false
 
-
 function restart(text,pokeName,id){
   usedHints = []
   lives = 6
-DOMSelectors.every.innerHTML = ""
-DOMSelectors.gal.innerHTML = "" 
+  // check if remove hints does anything?
+  clear([every,gal,hints])
 if(id != null){
 DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"></img></a>`)}
-document.getElementById("hints").innerHTML = ""
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>${text} </h1>
   <form class="cool">
@@ -100,31 +96,30 @@ DOMSelectors.every.insertAdjacentHTML("beforeend", `
   </form>`)
 document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
-  document.getElementById("every").innerHTML = ""
-  DOMSelectors.every.insertAdjacentHTML("beforeend", html)
-  dropSer() 
-  DOMSelectors.gal.innerHTML = ""
+  DOMSelectors.every.innerHTML = html
+  if(pokemonList.length == 649){
+    dropSer()
+  }
+  clear([gal])
   stuff.style.display = "block";
   test(array[Math.floor(Math.random()* array.length)])
-  console.log("e")
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
-    console.log("unova")
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
 })
 })
 }
 
-//Math.floor(Math.random() * 648) + 1
 let input = Math.floor(Math.random() * 648) + 1
 let lives = 6
 let usedHints = []
 
 
-
-
-
-
+function clear(list){
+  list.forEach(item => {
+    item.innerHTML = ""
+  })
+}
 
 
 
@@ -149,7 +144,8 @@ let pokemonList = []
           collect()
 
 async function dropSer(){
- try{ document.getElementById("dropdown").innerHTML = ""
+ try{ 
+  clear([dropdown])
     pokemonList.forEach(pokemon => {
       document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon.toUpperCase()}</option>`) 
     })
@@ -161,21 +157,11 @@ async function dropSer(){
 }
 
 
-
-console.log(pokemonList)
-
-
-
-
-
-
 function newGame(text,name,id){
   console.log(name)
   let complete = text + " " + name
   stuff.style.display = "none";
-  DOMSelectors.every.innerHTML = ""
-  document.getElementById("lives").innerHTML = ""
-  document.getElementById("hints").innerHTML = ""
+  clear([every])
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${name}</h1> `) 
   input = Math.floor(Math.random()* 648) + 1
   if(name == "porygon-z"||name == "mr-mime"){
@@ -186,9 +172,6 @@ function newGame(text,name,id){
     restart(complete,name,id)
   }
 }
-
-
-
 
 
 
