@@ -15,10 +15,14 @@ button{
 }
 
 
-#button2{
-margin: 10px;
+#dropdown{
+margin: 2px;
 }
 
+#guess{
+  height: 50px;
+  width: auto;
+}
 
 .img{
   justify-self:inherit;
@@ -47,13 +51,29 @@ background-color: rgba(0,0,205,0.1);
   border-radius: 20px;
   background-color: rgba(255,255,255,.9);
   width: 25%;
-  position: absolute;
-  min-height: 75%;
+  position: fixed;
+  min-height: 70%;
   
+}
+#silo{
+  border: 4px black solid;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,.9);
+  align-self: center;
+  min-width: 70%;
+  bottom: 0%;
+  position: absolute;
+  height: 10%;
+ right: 15%;
+}
+
+.guess{
+  height: 64px;
+  width: auto;
 }
 
 #lives{
-  font-size: 100px;
+  font-size: 17.5px;
   left: 0%;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
@@ -70,4 +90,8 @@ background-color: rgba(0,0,205,0.1);
 .hinttext{
   font-size: 17.5px;
   text-align: center;
+}
+
+#livecount{
+  font-size: 34px;
 }
