@@ -3,6 +3,10 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
+if(1 == true){
+  console.log("no way")
+}
+
 let input = "joltik"
 let lives = 6
 let usedHints = []
@@ -46,11 +50,14 @@ catch(error){
 
 
 function lastJuan(start,choice,p){ 
+  console.log(start)
   if(start == false){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
     return start
   }
-  if(start == "" || start == undefined || start == true){
+  if(start == "" || start == undefined || start == true && start != 1){
+    // screw you john javascript for making it that 1 is equal to true
+    console.log("ea")
     insert(choice.alttext,"","")
     return start
   }
@@ -71,6 +78,7 @@ function lastJuan(start,choice,p){
       lastJuan(next,choice,p+1)}})}
 else{
   if(choice.unitc == true){
+    console.log(start)
     insert(choice.text,start/10,choice.tend)
   }
   else{
