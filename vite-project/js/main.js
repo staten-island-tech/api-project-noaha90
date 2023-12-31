@@ -3,17 +3,15 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
-if(1 == true){
-  console.log("no way")
-}
-
 let input = "joltik"
-let lives = 6
+let lives = 7
 let usedHints = []
 let guessList = []
 let wins = 0 
 let losses = 0
 let games = 0
+let spriteMode = 0
+let sprites = ""
 
 async function test(choice,guess){
   console.log(choice)
@@ -35,10 +33,10 @@ async function test(choice,guess){
   else{
     if(guessList.includes(guess) == false){
     if(guess == "porygon-z"||guess == "mr-mime"){
-      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/gen5ani/${guess.replaceAll("-","")}.gif"></img>`)
+      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess.replaceAll("-","")}.gif"></img>`)
     }
     else{
-      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/gen5ani/${guess.split("-")[0] }.gif"></img>`)
+      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess.split("-")[0] }.gif"></img>`)
     }
   }
   guessList.push(guess)
@@ -50,14 +48,11 @@ catch(error){
 
 
 function lastJuan(start,choice,p){ 
-  console.log(start)
   if(start == false){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
     return start
   }
   if(start == "" || start == undefined || start == true && start != 1){
-    // screw you john javascript for making it that 1 is equal to true
-    console.log("ea")
     insert(choice.alttext,"","")
     return start
   }
@@ -78,7 +73,6 @@ function lastJuan(start,choice,p){
       lastJuan(next,choice,p+1)}})}
 else{
   if(choice.unitc == true){
-    console.log(start)
     insert(choice.text,start/10,choice.tend)
   }
   else{
@@ -89,7 +83,6 @@ else{
 
 
 function insert(text,va,end){
-  console.log(va)
 let ratio = "Winrate: " + Math.round(wins/games*10000)/100 + "%"
 if(ratio == "Winrate: NaN%"){
   ratio = "No Games Played"
@@ -113,15 +106,21 @@ let html = DOMSelectors.every.innerHTML
 
 function restart(text,pokeName,id){
   usedHints = guessList = []
-  lives = 6
-  clear([every,gal,hints,silo])
+  lives = 7
+  clear([every,hints,silo])
 if(id != null){
-DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"></img></a>`)}
+console.log(null)}
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>${text} </h1>
   <form class="cool">
   <button id="start">Start Game!</button>
+
+  <button id="sprites">Sprite Switch</button>
   </form>`)
+  document.getElementById("sprites").addEventListener("click", function(event) {
+    event.preventDefault()
+    spriteSwitch()
+  })
 document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
   DOMSelectors.every.innerHTML = html
@@ -133,8 +132,7 @@ document.getElementById("start").addEventListener("click", function(event) {
   entry()
   document.getElementById("button2").addEventListener("click", function(event) {
     event.preventDefault()
-    //guessList.includes(document.getElementById("value").value) == false && document.getElementById("value").value != ""
-    if(12!=1){
+    if(guessList.includes(document.getElementById("value").value) == false && document.getElementById("value").value != ""){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
   }
   else{
@@ -197,10 +195,18 @@ async function dropSer(){
 
 
 function newGame(text,name,id){
+  let showName = name.split("-")[0]
+  let pokeName = name.split("-")[0]
+  if(name == "porygon-z"||name == "mr-mime"){
+    pokeName = name
+    showName = name.replaceAll("-","")
+  }
+  console.log(showName + " " + pokeName)
   let complete = text + " " + name
   stuff.style.display = "none";
   clear([every])
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${name}</h1> `) 
+  DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
   input = Math.floor(Math.random()* 648) + 1
   if(name == "porygon-z"||name == "mr-mime"){
     restart(complete,name,id)
@@ -214,3 +220,9 @@ function newGame(text,name,id){
 
 restart("Press The Button Below To Start!","azumaril",null)
 
+
+function spriteSwitch(){
+  console.log(sprites)
+   sprites = ["gen5",""][spriteMode%2]
+  spriteMode++
+}
