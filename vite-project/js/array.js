@@ -25,7 +25,7 @@ const array = [
     level: ["2,3"],
     unitc: true,
     back: "",
-  },/*
+  },
   {
     u: `https://pokeapi.co/api/v2/pokemon-form/`,
     text: "This Pokemon Was Introduced In The Game(s) ",
@@ -99,7 +99,7 @@ const array = [
     route: ["random","item","name"],
     rand: "held_items",
     level: ["2,3"],
-    alttext: "This Pokemon Cannot Hold A Held Item",
+    alttext: "This Pokemon Cannot Hold A Held Item In The Wild",
     tend: " In The Wild",
     back: "",
   }, 
@@ -128,7 +128,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
-  },*/
+  },
   ]
 
 export {array}

@@ -3,7 +3,7 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
-let input = "joltik"
+let input = Math.floor(Math.random() * 648) + 1
 let lives = 7
 let usedHints = []
 let guessList = []
@@ -223,6 +223,9 @@ restart("Press The Button Below To Start!","azumaril",null)
 
 function spriteSwitch(){
   console.log(sprites)
+  console.log(spriteMode)
+  document.body.classList.add("mode" + spriteMode%2 )
+  document.body.classList.remove("mode" + (spriteMode+1)%2 )
    sprites = ["gen5",""][spriteMode%2]
   spriteMode++
 }
