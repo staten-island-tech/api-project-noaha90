@@ -96,11 +96,11 @@ document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hin
 lives--
 clear([DOMSelectors.lives])
 document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>    <form id="ea">
-<button id="useless" type="button">Ea  </button>
+<button id="sprites">Sprite Switch</button>
 </form>`)
-document.getElementById("useless").addEventListener("click", function(event) {
+document.getElementById("sprites").addEventListener("click", function(event) {
   event.preventDefault()
- console.log(guessList)
+  spriteSwitch()
 })
 usedHints.push(comb)
 }
@@ -124,13 +124,8 @@ DOMSelectors.every.insertAdjacentHTML("beforeend", `
   <h1>${text} </h1>
   <form class="cool">
   <button id="start">Start Game!</button>
+ `)
 
-  <button id="sprites">Sprite Switch</button>
-  </form>`)
-  document.getElementById("sprites").addEventListener("click", function(event) {
-    event.preventDefault()
-    spriteSwitch()
-  })
 document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
   DOMSelectors.every.innerHTML = html
@@ -216,6 +211,7 @@ function newGame(text,name,id){
   stuff.style.display = "none";
   clear([every])
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${name}</h1> `) 
+  console.log(sprites)
   DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
   input = Math.floor(Math.random()* 648) + 1
   if(name == "porygon-z"||name == "mr-mime"){
@@ -237,5 +233,9 @@ function spriteSwitch(){
   document.body.classList.add("mode" + spriteMode%2 )
   document.body.classList.remove("mode" + (spriteMode+1)%2 )
    sprites = ["gen5",""][spriteMode%2]
-  spriteMode++
+   DOMSelectors.silo.innerHTML = ""
+   guessList.forEach(guess => {
+    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif"></img>`)
+   })
+   spriteMode++
 }
