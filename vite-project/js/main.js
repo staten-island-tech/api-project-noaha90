@@ -31,15 +31,17 @@ async function test(choice,guess){
     newGame("Lose: ",data2.name,data2.id)
   }
   else{
-    if(guessList.includes(guess) == false){
+      let newG = guess
     if(guess == "porygon-z"||guess == "mr-mime"){
-      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess.replaceAll("-","")}.gif"></img>`)
+       newG = guess.replaceAll("-","")
     }
     else{
-      DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess.split("-")[0] }.gif"></img>`)
+       newG = guess.split("-")[0] 
     }
+    if(guessList.includes(newG) == false){
+      guessList.push(newG)
+    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${newG}.gif"></img>`)
   }
-  guessList.push(guess)
   lastJuan(data,choice,0)
 }}
 catch(error){
@@ -48,9 +50,10 @@ catch(error){
 
 
 function lastJuan(start,choice,p){ 
+  console.log(start.color)
   if(start == false){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
-    return start
+    return start  
   }
   if(start == "" || start == undefined || start == true && start != 1){
     insert(choice.alttext,"","")
@@ -92,7 +95,13 @@ if(usedHints.includes(comb) == false){
 document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb.replaceAll('-', ' ').toUpperCase()}</h1>`)
 lives--
 clear([DOMSelectors.lives])
-document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>`)
+document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>    <form id="ea">
+<button id="useless" type="button">Ea  </button>
+</form>`)
+document.getElementById("useless").addEventListener("click", function(event) {
+  event.preventDefault()
+ console.log(guessList)
+})
 usedHints.push(comb)
 }
 else{
@@ -105,7 +114,8 @@ stuff.style.display = "none";
 let html = DOMSelectors.every.innerHTML
 
 function restart(text,pokeName,id){
-  usedHints = guessList = []
+  guessList = []
+  usedHints = []
   lives = 7
   clear([every,hints,silo])
 if(id != null){

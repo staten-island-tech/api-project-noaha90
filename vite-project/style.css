@@ -4,6 +4,7 @@
   text-align: center;
 display:flexbox;
 transition: 2s;
+font: 400;
 } 
 
 
@@ -115,3 +116,4 @@ background-color: rgba(0,0,205,0.1);
 #livecount{
   font-size: 34px;
 }
+
