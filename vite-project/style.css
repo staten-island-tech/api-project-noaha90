@@ -13,10 +13,11 @@ button{
   margin: 10px;
 }
 
-h1{
+
+
+#starttext{
+  font-size: 3rem;
 background-color: white;
-margin-left: 100px;
-margin-right: 100px;
 border: solid black 5px;
 border-radius: 10px
 }
@@ -69,7 +70,7 @@ margin: 2px;
 
 
 #dropdown, #value{
-  color: gray;
+  color: black;
   text-align: center;
 }
 
@@ -93,6 +94,8 @@ margin: 2px;
   position: absolute;
   height: 10%;
  right: 15%;
+ display: flex;
+ justify-content:space-evenly;
 }
 
 .guess{
@@ -103,11 +106,12 @@ margin: 2px;
 
 
 #lives{
-  font-size: 17.5px;
-  left: 0%;
+  font-size: 1.25rem;
+  left: 0%; 
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
 }
+
 
 #hints{
   font-size: 10px;
@@ -126,3 +130,6 @@ margin: 2px;
   font-size: 34px;
 }
 
+#error{
+  color:maroon;
+}

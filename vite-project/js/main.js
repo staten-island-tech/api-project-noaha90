@@ -3,7 +3,7 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
-let input = "ho-oh"
+let input =Math.floor(Math.random() * 648) + 1
 let lives = 7
 let usedHints = []
 let guessList = []
@@ -14,7 +14,7 @@ let spriteMode = 0
 let sprites = ""
 
 async function test(choice,guess){
-  console.log(choice + "    " +input )
+  console.log(choice)
   try{
   const response = await fetch(choice.u + input + choice.back)
   const data = await response.json(); 
@@ -23,12 +23,12 @@ async function test(choice,guess){
   if(guess == data2.name){
     wins++
     games++
-    newGame("Win: ",data2.name,data2.id)
+    newGame("Win: ",data2.name,data2.id,data2)
     return wins
   }
   else if(lives == 0){
     games++
-    newGame("Lose: ",data2.name,data2.id)
+    newGame("Lose: ",data2.name,data2.id,data2)
   }
   else{
       let newG = guess
@@ -40,7 +40,7 @@ async function test(choice,guess){
     }
     if(guessList.includes(newG) == false){
       guessList.push(newG)
-    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${newG}.gif"></img>`)
+    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${newG}.gif"alt="${newG}"></img>`)
   }
   lastJuan(data,choice,0)
 }}
@@ -50,12 +50,11 @@ catch(error){
 
 
 function lastJuan(start,choice,p){ 
-  console.log(start.color)
-  if(start == false){
+  if(start === false){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
     return start  
   }
-  if(start == "" || start == undefined || start == true && start != 1){
+  if(start == "" || start == undefined || start === true){
     insert(choice.alttext,"","")
     return start
   }
@@ -121,7 +120,7 @@ function restart(text,pokeName,id){
 if(id != null){
 console.log(null)}
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
-  <h1>${text} </h1>
+  <h2 id="starttext">${text} </h2>
   <form class="cool">
   <button id="start">Start Game!</button>
  `)
@@ -142,6 +141,10 @@ document.getElementById("start").addEventListener("click", function(event) {
   }
   else{
     console.log("Already Guessed!")
+    if(document.getElementById("mess") == null){
+      document.getElementById("lives").insertAdjacentHTML("afterbegin",`<div id="mess"><h2 id="error">Guess A Valid Pokemon!</h2></div>`)
+    }
+
   }
 })
 })
@@ -180,7 +183,6 @@ let pokemonList = []
       dropSer()
     }
     catch (error) { 
-      console.log("error")
           }}
 
           collect()
@@ -199,20 +201,19 @@ async function dropSer(){
 }
 
 
-function newGame(text,name,id){
+function newGame(text,name,id,data){
   let showName = name.split("-")[0]
   let pokeName = name.split("-")[0]
   if(name == "porygon-z"||name == "mr-mime"||name == "ho-oh"){
     pokeName = name
     showName = name.replaceAll("-","")
   }
-  console.log(showName + " " + pokeName)
   let complete = text + " " + name
   stuff.style.display = "none";
   clear([every])
   document.getElementById("every").insertAdjacentHTML("beforeend", `<h2>${text} ${name}</h2> `) 
-  console.log(sprites)
-  DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
+  //DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
+  DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/gen5icons/${input}.png" alt="${pokeName}"</img></a>`)
   input = Math.floor(Math.random()* 648) + 1
   if(name == "porygon-z"||name == "mr-mime"){
     restart(complete,name,id)
@@ -229,20 +230,19 @@ restart("Press The Button Below To Start!","azumaril",null)
 
 function spriteSwitch(){
   // pokemonList.forEach(mon => {  lifeHasSmitedMe(mon)})
-  console.log(sprites)
-  console.log(spriteMode)
   document.body.classList.add("mode" + spriteMode%2 )
   document.body.classList.remove("mode" + (spriteMode+1)%2 )
    sprites = ["gen5",""][spriteMode%2]
    DOMSelectors.silo.innerHTML = ""
    guessList.forEach(guess => {
-    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif"></img>`)
-   })
+    console.log(`https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif`)
+    try{
+    DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif" alt="${guess}"></img>`)
+    
+  }
+    catch (error){
+      console.log("ea")
+    }
+  })
    spriteMode++
-}
-
-async function lifeHasSmitedMe(mon){
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${mon}`)
-  const data = await response.json(); 
-  console.log(data.weight + data.name)
 }
