@@ -13,6 +13,13 @@ button{
   margin: 10px;
 }
 
+h1{
+background-color: white;
+margin-left: 100px;
+margin-right: 100px;
+border: solid black 5px;
+border-radius: 10px
+}
 .mode0{
   transition: .5s;
   background: url(https://play.pokemonshowdown.com/fx/bg-route.png) ;
@@ -48,16 +55,14 @@ margin: 2px;
 
 .img{
   justify-self:inherit;
-  border: 1px solid black;
    height: 128px;
  /* filter: contrast(5%) blur(12px); */
-background-color: rgba(0,0,205,0.1);
 }
 
 
 .img:hover{
-  transition: .1s;
-  background-color: rgba(50,50,70,.2);
+  transition: .4s;
+  transform: scale(1.1);
   border-color: darkgoldenrod;
 }
 

@@ -3,7 +3,7 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
-let input = Math.floor(Math.random() * 648) + 1
+let input = "ho-oh"
 let lives = 7
 let usedHints = []
 let guessList = []
@@ -14,7 +14,7 @@ let spriteMode = 0
 let sprites = ""
 
 async function test(choice,guess){
-  console.log(choice)
+  console.log(choice + "    " +input )
   try{
   const response = await fetch(choice.u + input + choice.back)
   const data = await response.json(); 
@@ -32,7 +32,7 @@ async function test(choice,guess){
   }
   else{
       let newG = guess
-    if(guess == "porygon-z"||guess == "mr-mime"){
+    if(guess == "porygon-z"||guess == "mr-mime"||guess == "ho-oh"){
        newG = guess.replaceAll("-","")
     }
     else{
@@ -92,7 +92,7 @@ if(ratio == "Winrate: NaN%"){
 }
 let comb = text + va + end
 if(usedHints.includes(comb) == false){
-document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb.replaceAll('-', ' ').toUpperCase()}</h1>`)
+document.getElementById("hints").insertAdjacentHTML("beforeend", `<h2 class="hinttext">${comb.replaceAll('-', ' ').toUpperCase()}</h2>`)
 lives--
 clear([DOMSelectors.lives])
 document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>    <form id="ea">
@@ -202,7 +202,7 @@ async function dropSer(){
 function newGame(text,name,id){
   let showName = name.split("-")[0]
   let pokeName = name.split("-")[0]
-  if(name == "porygon-z"||name == "mr-mime"){
+  if(name == "porygon-z"||name == "mr-mime"||name == "ho-oh"){
     pokeName = name
     showName = name.replaceAll("-","")
   }
@@ -210,7 +210,7 @@ function newGame(text,name,id){
   let complete = text + " " + name
   stuff.style.display = "none";
   clear([every])
-  document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${name}</h1> `) 
+  document.getElementById("every").insertAdjacentHTML("beforeend", `<h2>${text} ${name}</h2> `) 
   console.log(sprites)
   DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
   input = Math.floor(Math.random()* 648) + 1
@@ -228,6 +228,7 @@ restart("Press The Button Below To Start!","azumaril",null)
 
 
 function spriteSwitch(){
+  // pokemonList.forEach(mon => {  lifeHasSmitedMe(mon)})
   console.log(sprites)
   console.log(spriteMode)
   document.body.classList.add("mode" + spriteMode%2 )
@@ -238,4 +239,10 @@ function spriteSwitch(){
     DOMSelectors.silo.insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif"></img>`)
    })
    spriteMode++
+}
+
+async function lifeHasSmitedMe(mon){
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${mon}`)
+  const data = await response.json(); 
+  console.log(data.weight + data.name)
 }
