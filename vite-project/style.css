@@ -2,18 +2,32 @@
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
 display:flexbox;
-transition: 20s;
+transition: 2s;
 font: 400;
 
 } 
 
 
 button{
+  background-color:rgb(235, 235, 253);
   height: 5%;
   width: 10%;
+  border: 0px;
   margin: 10px;
 }
 
+
+button:hover{
+  transition: .75s;
+  transform:scale(1.1)
+}
+
+#value{
+  width: 20%;
+  height: 3.5%;
+  border: 2px black solid;
+  border-radius: 5px;
+}
 
 
 #starttext{
@@ -65,6 +79,10 @@ margin: 2px;
 }
 
 
+#cool{
+  position: absolute;
+}
+
 .img:hover{
   transition: .4s;
   transform: scale(1.1);
@@ -82,18 +100,18 @@ margin: 2px;
   background-color: aqua;
 }
 #dropdown, #value{
-  color: black;
   text-align: center;
 }
 
 #hints,#lives{
+  align-items: center;
   color: rgb( 20,20,20);
   border: 4px black solid;
   border-radius: 20px;
   background-color: rgba(255,255,255,.9);
   width: 25%;
   position: fixed;
-  min-height: 70%;
+  min-height: 500px;
   
 }
 
@@ -129,22 +147,42 @@ margin: 2px;
   height: 50px;
 }
 
+#bar{
+  position: absolute;
+ top:0px;
+ border-end-end-radius: 20px;
+ border-end-start-radius: 20px;
+  background-color: green;
+  min-height: 5%;
+  min-width: 100%;
+  right: 0%;
+}
 #lives{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 1.25rem;
   left: 0%; 
+  
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
 
 #hints{
-  font-size: 6px;
+  font-size: 500px;
   right: 0%;
   border-bottom-right-radius: 0px;
   border-top-right-radius: 0px;
 }
 
-
+.hinttext:hover,.entry:hover{
+  transition: .25s;
+  background-color: rgba(197, 68, 223,0.1)
+}
 .hinttext{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12.5px;
