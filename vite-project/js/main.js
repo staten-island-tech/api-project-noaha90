@@ -137,6 +137,7 @@ DOMSelectors.every.insertAdjacentHTML("beforeend", `
 <div id="car">
 <h2 id="starttext">${text} </h2>
   <form class="cool">
+  <div id="things"></div>
   <button id="start">Start Game!</button></div>
 <div id="far"></div>
  `)
