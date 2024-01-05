@@ -7,6 +7,7 @@ const array = [
     rand: "moves",
     level: ["2,3"],
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -16,6 +17,7 @@ const array = [
     level: ["2,3"],
     unitc: true,
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -25,6 +27,7 @@ const array = [
     level: ["2,3"],
     unitc: true,
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-form/`,
@@ -33,6 +36,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
+    split: ' and ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -41,6 +45,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -51,6 +56,7 @@ const array = [
     tend: "",
     alttext: "This Pokemon Cannot Be Found In The Wild!",
     back: "/encounters",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -59,6 +65,7 @@ const array = [
     level: ["1,2"],
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -67,6 +74,7 @@ const array = [
     level: ["1,2"],
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -76,6 +84,7 @@ const array = [
     alttext: "This Pokemon Is A Baby",
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -84,6 +93,7 @@ const array = [
     alttext: "This Pokemon Is A Legendary",
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon-species/`,
@@ -92,6 +102,7 @@ const array = [
     alttext: "This Pokemon Is A Mythical",
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -102,6 +113,7 @@ const array = [
     alttext: "This Pokemon Cannot Hold A Held Item In The Wild",
     tend: " In The Wild",
     back: "",
+    split: ' ',
   }, 
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -111,6 +123,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -120,6 +133,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
+    split: ' ',
   },
   {
     u: `https://pokeapi.co/api/v2/pokemon/`,
@@ -128,6 +142,7 @@ const array = [
     level: ["2,3"],
     tend: "",
     back: "",
+    split: ' ',
   },
   ]
 
