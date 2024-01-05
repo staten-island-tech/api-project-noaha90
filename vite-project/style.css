@@ -31,9 +31,8 @@ button:hover{
 
 
 #starttext{
+  animation: fade ease .5s;
   font-size: 3rem;
-background-color: white;
-border: solid black 5px;
 border-radius: 10px
 }
 .mode0{
@@ -78,6 +77,45 @@ margin: 2px;
  /* filter: contrast(5%) blur(12px); */
 }
 
+#far{
+  background: #FFF2F2;
+  color: black;
+  height: 100.7%;
+  top:-5px;
+  right: 0%;
+  width: 30%;
+  position: absolute;
+}
+
+@keyframes fade {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+#car{
+  background: #7286D3;
+  height: 100.7%;
+  top:-5px;
+  border-right: 100px solid #F5CC00;
+  left: 0%;
+  width: calc(70% - 5px);
+  position: absolute;
+}
+
+
+@media screen and (max-width: 1000px) {
+  #car {
+    border-color: #7286D3;
+  }
+  #far {
+    background-color: #7286D3;
+    color: white;
+  }
+}
 
 #cool{
   position: absolute;
@@ -155,6 +193,7 @@ margin: 2px;
   background-color: green;
   min-height: 5%;
   min-width: 100%;
+  margin-bottom: 200px;
   right: 0%;
 }
 #lives{
@@ -166,11 +205,6 @@ margin: 2px;
   border-top-left-radius: 0px;
 }
 
-@media only screen and (max-width: 600px) {
-  body {
-    background-color: lightblue;
-  }
-}
 
 #hints{
   font-size: 500px;

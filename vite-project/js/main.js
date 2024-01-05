@@ -129,15 +129,16 @@ stuff.style.display = "none";
 let html = DOMSelectors.every.innerHTML
 
 function restart(text,pokeName,id){
-  
   guessList = []
   usedHints = []
   lives = 7
   clear([every,hints,silo])
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
-  <h2 id="starttext">${text} </h2>
+<div id="car">
+<h2 id="starttext">${text} </h2>
   <form class="cool">
-  <button id="start">Start Game!</button>
+  <button id="start">Start Game!</button></div>
+<div id="far"></div>
  `)
 
 document.getElementById("start").addEventListener("click", function(event) {
