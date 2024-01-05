@@ -35,7 +35,6 @@ button:hover{
 
 
 
-
 #starttext{
   margin-top: 5%;
   color: white;
@@ -179,8 +178,8 @@ margin: 2px;
   min-width: 70%;
   bottom: 0%;
   position: absolute;
-  align-items: center;
-  right: 15%;
+  min-height: 9%;
+ right: 15%;
  display: flex;
  justify-content:space-evenly;
 }
@@ -194,7 +193,24 @@ margin: 2px;
   height: 50px;
 }
 
+.grid-container {
+  position: absolute;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  right: .5%;
+  grid-template-columns: auto auto;
+  background-color: #2196F3;
+}
 
+.grid-container > div {
+  width: 100%;
+border-left: 10px solid black;
+  background-color: rgba(255, 255, 255, 0.28);
+  text-align: center;
+  padding: 0px 20px;
+  font-size: 30px;
+}
 
 
 
