@@ -14,12 +14,17 @@ button{
   border: 2px solid white;
   background-color: transparent;
   color: white;
-  border-radius: 5px;
   padding: 14px 28px;
   font-size: 16px;
-  cursor: pointer;
 }
 
+#start{
+  width: 20%;
+}
+
+#var{
+  width: 20%;
+}
 
 button:hover{
   transition: .75s;
@@ -34,14 +39,22 @@ button:hover{
 }
 
 
-
-#starttext{
-  margin-top: 5%;
+#all{
+  background-color: #2196F3;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  display: flex;
+}
+#insert{
+  width: 80%;
   color: white;
   font-weight: 100;
   animation: fade ease .5s;
   font-size: 3rem;
-border-radius: 10px
+border-radius: 10px;
+height: 100%;
 }
 .mode0{
   transition: .5s;
@@ -68,7 +81,7 @@ border-radius: 10px
 
 
 #dropdown{
-margin: 2px;
+margin: 2px;  
 }
 
 #guess{
@@ -104,26 +117,7 @@ margin: 2px;
    }
 }
 
-#car{
-  background: #7286D3F2;
-  height: 100.7%;
-  top:-5px;
-  border-right: 10px solid #F5CC00;
-  left: 0%;
-  width: calc(70% - 5px);
-  position: absolute;
-}
 
-
-@media screen and (max-width: 1000px) {
-  #car {
-    border-width: 0px;
-    width: 50%;
-  }
-  #far {
-    width: 50%;
-  }
-}
 
 #cool{
   position: absolute;
@@ -135,6 +129,11 @@ margin: 2px;
   border-color: darkgoldenrod;
 }
 
+
+#every{
+  width: 100%;
+  align-items: center;
+}
 #winbox{
   align-items: center;
   justify-content: space-evenly;
@@ -149,15 +148,13 @@ margin: 2px;
   text-align: center;
 }
 
-#hints,#lives{
+#hints,#lives,#options{
   align-items: center;
   color: rgb( 20,20,20);
   border: 4px black solid;
   border-radius: 20px;
   background-color: rgba(255,255,255,.9);
   width: 25%;
-  position: fixed;
-  min-height: 500px;
   
 }
 
@@ -177,7 +174,6 @@ margin: 2px;
   align-self: center;
   min-width: 70%;
   bottom: 0%;
-  position: absolute;
   min-height: 9%;
  right: 15%;
  display: flex;
@@ -214,17 +210,6 @@ border-left: 10px solid black;
 
 
 
-#bar{
-  position: absolute;
- top:0px;
- border-end-end-radius: 20px;
- border-end-start-radius: 20px;
-  background-color: green;
-  min-height: 5%;
-  min-width: 100%;
-  margin-bottom: 200px;
-  right: 0%;
-}
 #lives{
   font-size: 1.25rem;
   left: 0%; 
@@ -235,6 +220,8 @@ border-left: 10px solid black;
 
 
 #hints{
+  justify-content:right;
+  align-self: right;
   font-size: 500px;
   right: 0%;
   border-bottom-right-radius: 0px;

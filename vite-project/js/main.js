@@ -17,7 +17,7 @@ let spriteMode = 0
 let sprites = ""
 let music = ["https://d2rfm1awsiaf19.cloudfront.net/b8knmp%2Ffile%2Ffbd94ffb76b69696ad1d10c92c0cc45d_fd5784c9c1c6b7cc8a37dd34a1eee2c9.mp3?response-content-disposition=inline%3Bfilename%3D%22fbd94ffb76b69696ad1d10c92c0cc45d_fd5784c9c1c6b7cc8a37dd34a1eee2c9.mp3%22%3B&response-content-type=audio%2Fmpeg&Expires=1704348029&Signature=MBcCOOJ0mnFdLW~QdQwUv-Ximlk3OOdaSdEoezqEHQYCQfe~KSa7c2X2cRKKcfyqVuE32bSJwwOHbsdeD8H~RWfW0Ow0FT97dNhqpu-q~Rza39oqbPkjqx5ENmLgJ5J0zSD-PSc0jWlqpG2cMmV~jaYSOHmXeU1I8So4sicl0j-wwyJJDSlDHP9Usenj0f9~ADV9RnM9EKAeUFoEXTNLsxB2A04QpZjxLyU8T9mU-4R606wR0Qz-lpik7J6ugpRKtQZzyvxjQgFxOm9dmk4sJqxjOB~F75de7KD0-ZuAieMujz5W0mvrK08-4CePqRUuaSjqAKi-98CWsdHTm2gv0g__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ","https://d609glervfwtx.cloudfront.net/b234vp%2Ffile%2F50ba4646083f4bf11bf510d81388e340_0efe5929312ddb3e5959d36e03d0bf45.mp3?response-content-disposition=inline%3Bfilename%3D%2250ba4646083f4bf11bf510d81388e340_0efe5929312ddb3e5959d36e03d0bf45.mp3%22%3B&response-content-type=audio%2Fmpeg&Expires=1704359063&Signature=griGDqrD5GOI1xYh4uWpNlE4248rUvRPKAfvUXTYBFmdjpsB3MXctKW6cpHHPhoQU5kC9OlTyz5oQK47or6QcdGcYmHCHv4LWVviqSrEK0bm9yaytm1vMrfceRk6kha4XpWQyPLDxYm5dNY8qYDTpVH3yZqlCHMBhe73vhd-6zSJvjHDylaaXC7zfNAmT7OeHdW2Hgsw33f95URG2GahjBiz1PT~XEX6z06BQCTtNa9xe-~n5T4Tp7hZlfREj0oTnd0UAm5yXQeQMcD9jmA9N7ahr2K85kVk279Mr5XFYFbw4LjYvnNQAqQfpCGJ3AaHHeMBksK-85bloMLf4mBc4Q__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ","https://d1fujncubipnn4.cloudfront.net/u5ugwp%2Ffile%2F3e75ba7a09829a2bb83ef0f0fd913c9c_1c20b618baa608f428cf85d7c81f8795.mp3?response-content-disposition=inline%3Bfilename%3D%223e75ba7a09829a2bb83ef0f0fd913c9c_1c20b618baa608f428cf85d7c81f8795.mp3%22%3B&response-content-type=audio%2Fmpeg&Expires=1704360816&Signature=VVy1DpO1R8orMkRE50IrFN3FVCuskpCd80esTSo-ZdPP2mPmc-PuDSea0ptV55jxDb4UmRCOOM1x9LROBu9iaJVYYh6uTTNXB5MZo0HtxkRiFPjLOOg0mtX4BH7am3zOqMjTXNtxshwUNTWq9tBKrJONBD-X11nMkibPNzasncF9QVwYithASRzofMMbEsArFy28TRqViCdBPKpRrqKPJOY-iLqd~G~CYzO6L5u2lpnEhEY59BCxQyMPz8P3MQF02XOTwhG5pRhh6tXf9UnFkMIAbZ7gwXqSrwEniZiJRZGcMzQE1tmEwZBGK~cbADUcCVqNMNYWCFIdlBA8qqufQQ__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ","https://play.pokemonshowdown.com/audio/hgss-kanto-trainer.mp3","https://play.pokemonshowdown.com/audio/oras-rival.mp3"]
 
-DOMSelectors.gal.insertAdjacentHTML("beforeend",`        <div id="var">
+DOMSelectors.gal.insertAdjacentHTML("beforeend",`        <div id="rules">
 <p>1: You Have 7 Guesses To </p>
 <p>1: EA</p>
 </div>
@@ -56,6 +56,7 @@ async function test(choice,guess){
   lastJuan(data,choice,0)
 }}
 catch(error){
+  console.log(error)
   uhoh()
 }}
 
@@ -111,12 +112,13 @@ if(usedHints.includes(comb) == false){
 lives--
 clear([DOMSelectors.lives])
 document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>    <form id="ea">
-<button id="sprites">Sprite Switch</button>
+
 </form>`)
-document.getElementById("sprites").addEventListener("click", function(event) {
-  event.preventDefault()
-  spriteSwitch()
-})
+//<button id="sprites">Sprite Switch</button>
+// document.getElementById("sprites").addEventListener("click", function(event) {
+//   event.preventDefault()
+//   spriteSwitch()
+// })
 usedHints.push(comb)
 }
 else{
@@ -126,6 +128,7 @@ test(array[Math.floor(Math.random()* array.length)],document.getElementById("val
       
 
 stuff.style.display = "none";
+console.log(DOMSelectors.every)
 let html = DOMSelectors.every.innerHTML
 
 function restart(text,pokeName,id){
@@ -134,13 +137,13 @@ function restart(text,pokeName,id){
   lives = 7
   clear([every,hints,silo])
 DOMSelectors.every.insertAdjacentHTML("beforeend", `
-<div id="insert">
+<div id="car">
 <h2 id="starttext">${text} </h2>
   <form class="cool">
   <div id="things"></div>
   <button id="start">Start Game!</button></div>
+<div id="far"></div>
  `)
-
 document.getElementById("start").addEventListener("click", function(event) {
   event.preventDefault()
   if(id===null){
@@ -153,9 +156,10 @@ document.getElementById("start").addEventListener("click", function(event) {
     dropSer()
   }
   clear([gal])
-  stuff.style.display = "block";
+  stuff.style.display = "grid";
   entry()
   document.getElementById("button2").addEventListener("click", function(event) {
+    console.log("pressed")
     event.preventDefault()
     if(guessList.includes(document.getElementById("value").value.toLowerCase()) == false && document.getElementById("value").value != ""){
     test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
@@ -190,6 +194,7 @@ async function entry(){
   insert("Pokedex Entry: ", censored,"","entry"," ")
 }
 catch(error){
+  console.log(error)
   uhoh()
 }
 }
