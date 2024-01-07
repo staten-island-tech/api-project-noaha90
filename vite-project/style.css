@@ -6,7 +6,8 @@ transition: 2s;
 font: 400;
 font-family: 'Courier New', Courier, monospace;
 
-} 
+}   
+
 
 
 button{
@@ -14,16 +15,44 @@ button{
   border: 2px solid white;
   background-color: transparent;
   color: white;
+  border-radius: 5px;
   padding: 14px 28px;
   font-size: 16px;
+  cursor: pointer;
 }
 
-#start{
-  width: 20%;
+#main{
+  display: flex;
+  justify-content:space-evenly;
+  align-self:first baseline;
+
+  width: 100%;
+  height: 100%;
 }
 
-#var{
+#gal{
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: left;
+  background-color: gainsboro;
+  min-height: 100%;
+  display: flexbox; 
+}
+
+#options{
+  background-color: #F5CC00;
+
+  height: 100%;
+}
+
+#left{
+  height: 100%;
   width: 20%;
+  font-size: .2rem;
+}
+
+#text{
+  background-color: bisque;
 }
 
 button:hover{
@@ -39,22 +68,20 @@ button:hover{
 }
 
 
-#all{
-  background-color: #2196F3;
+
+#stuff{
   height: 100%;
-  width: 100%;
-  top: 0px;
-  left: 0px;
   display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -1400px;
 }
-#insert{
-  width: 80%;
+
+#starttext{
   color: white;
   font-weight: 100;
   animation: fade ease .5s;
   font-size: 3rem;
-border-radius: 10px;
-height: 100%;
+border-radius: 10px
 }
 .mode0{
   transition: .5s;
@@ -63,7 +90,7 @@ height: 100%;
 }
 
 #sprites{
-  width: auto;
+  background-color: black;
 }
 
 .mode1{
@@ -81,7 +108,6 @@ height: 100%;
 
 
 #dropdown{
-margin: 2px;  
 }
 
 #guess{
@@ -89,24 +115,9 @@ margin: 2px;
   width: auto;
 }
 
-.img{
-  display:grid;
-  justify-self:inherit;
-   height: 192px;
-   width: auto;
-   margin: 2%;
- /* filter: contrast(5%) blur(12px); */
-}
 
-#far{
-  background: #f8f0f0E6;
-  color: black;
-  height: 100.7%;
-  top:-5px;
-  right: 0%;
-  width: 30%;
-  position: absolute;
-}
+
+
 
 @keyframes fade {
   0% {
@@ -119,8 +130,19 @@ margin: 2px;
 
 
 
-#cool{
-  position: absolute;
+
+@media screen and (max-width: 1000px) {
+  #car {
+    border-width: 0px;
+    width: 50%;
+  }
+  #far {
+    width: 50%;
+  }
+}
+
+#gform{
+ background-color: orange;
 }
 
 .img:hover{
@@ -129,14 +151,9 @@ margin: 2px;
   border-color: darkgoldenrod;
 }
 
-
-#every{
-  width: 100%;
-  align-items: center;
-}
 #winbox{
-  align-items: center;
-  justify-content: space-evenly;
+  height: 100%;
+width: 75%;
   border: gold 2px solid;
   background-color: green;
 }
@@ -146,16 +163,51 @@ margin: 2px;
 }
 #dropdown, #value{
   text-align: center;
+  height: 10%;
 }
 
-#hints,#lives,#options{
+h1,h2,p{
+  margin: 0px;
+  font-size: 1.5rem;
+}
+#value{
+  width: 70%;
+}
+#hints,#lives,#monster,#mid,#bot{
+  min-height: 50px;
   align-items: center;
   color: rgb( 20,20,20);
   border: 4px black solid;
-  border-radius: 20px;
   background-color: rgba(255,255,255,.9);
-  width: 25%;
+
   
+}
+
+
+#mid{
+  width: 60%;
+  height: 80%;
+}
+#bot{
+  width: 100%;}
+#lives{
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0px;
+  font-size: 1.25rem;
+  height: 50%;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+#hints{
+  height: 80%;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+#right{
+  width: calc(20% - 8px);
 }
 
 #rules{
@@ -163,70 +215,51 @@ margin: 2px;
   border: 1px black solid;
   border-radius: 20px;
   background-color: rgba(235, 235, 253, 0.3);
-  margin-inline: 25%;
   
 
 }
 #silo{
+  margin-right: 0px;
   border: 4px black solid;
-  border-radius: 20px;
   background-color: rgba(255,255,255,.9);
-  align-self: center;
-  min-width: 70%;
-  bottom: 0%;
-  min-height: 9%;
- right: 15%;
- display: flex;
+   width: calc(100% - 8px);
+  height: 9%;
+ flex-direction: column;
  justify-content:space-evenly;
 }
 
+
+#bot
+#bottom{
+  height: 10%;
+  background-color: darkblue;
+  direction: flex;
+  flex-direction: row;
+}
+#top{
+  height: 100%;
+  flex-direction: row-reverse;
+  display: flex;
+}
 .guess{
   height: 64px;
-  width: auto;
 }
 
 .uw12{
   height: 50px;
 }
 
-.grid-container {
-  position: absolute;
-  display: grid;
-  height: 100%;
-  width: 100%;
-  right: .5%;
-  grid-template-columns: auto auto;
-  background-color: #2196F3;
+
+
+
+
+
+
+#up{
+  height: 50%;
+  display: flex;
 }
 
-.grid-container > div {
-  width: 100%;
-border-left: 10px solid black;
-  background-color: rgba(255, 255, 255, 0.28);
-  text-align: center;
-  padding: 0px 20px;
-  font-size: 30px;
-}
-
-
-
-#lives{
-  font-size: 1.25rem;
-  left: 0%; 
-  
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-}
-
-
-#hints{
-  justify-content:right;
-  align-self: right;
-  font-size: 500px;
-  right: 0%;
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 0px;
-}
 
 .hinttext:hover,.entry:hover{
   transition: .25s;
@@ -237,9 +270,7 @@ border-left: 10px solid black;
   text-align: center;
 }
 
-#livecount{
-  font-size: 34px;
-}
+
 
 #error{
   color:maroon;
@@ -247,4 +278,9 @@ border-left: 10px solid black;
 
 .entry{
   font-size: 17.5px;
+}
+
+#monster{
+  border-top:0px black solid;
+  height: 30%;
 }
