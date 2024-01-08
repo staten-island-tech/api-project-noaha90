@@ -1,4 +1,11 @@
 
+:root{
+  justify-content: center;
+  margin: 0px;
+  --main: #ffffffbf;
+  --secondary: #000000;
+}
+
 #top{
   align-items: center;
   height: 100%;
@@ -22,11 +29,6 @@
   
 }
 
-:root{
-  justify-content: center;
-  margin: 0px;
-}
-
 
 #up{
   height: 50%;
@@ -34,10 +36,7 @@
 }
 
 
-.hinttext:hover,.entry:hover{
-  transition: .25s;
-  background-color: rgba(197, 68, 223,0.1)
-}
+
 .hinttext{
   margin-top: 20px;
   font-size: 1rem;
@@ -46,9 +45,7 @@
 
 
 
-#error{
-  color:maroon;
-}
+
 
 .entry{
   font-size: 1.5rem;
@@ -70,9 +67,9 @@
 
 
 button{
-  border: 2px solid white;
+  border: 2px solid var(--main);
   background-color: transparent;
-  color: white;
+  color: var(--main);
   border-radius: 5px;
   padding: 14px 28px;
   font-size: 16px;
@@ -103,9 +100,7 @@ button{
 
 }
 
-#text{
-  background-color: bisque;
-}
+
 
 button:hover{
   transition: .75s;
@@ -115,7 +110,7 @@ button:hover{
 #value{
   width: 20%;
   height: 3.5%;
-  border: 2px black solid;
+  border: 2px var(--secondary) solid;
   border-radius: 5px;
 }
 
@@ -142,7 +137,7 @@ button:hover{
 }
 
 #sprites{
-  background-color: black;
+  background-color: var(--secondary);
 }
 
 .mode1{
@@ -182,8 +177,8 @@ button:hover{
 
 
 #start{
-  border-color: black;
-  color:black;
+  border-color: var(--secondary);
+  color:var(--secondary);
 }
 
 
@@ -196,7 +191,6 @@ img{
 .img:hover{
   transition: .4s;
   transform: scale(1.1);
-  border-color: darkgoldenrod;
 }
 
 #title{
@@ -205,9 +199,7 @@ img{
   width: 100%;
 
 }
-#win{
-  background-color: aqua;
-}
+
 
 
 #dropdown, #value{
@@ -223,9 +215,9 @@ img{
 #hints,#lives,#monster,#mid,#silo,#winbox,#options{
   min-height: 50px;
 
-  color: rgb( 20,20,20);
-  border: 4px black solid;
-  background-color: rgba(255,255,255,.75);
+  color: var(--secondary);
+  border: 4px var(--secondary) solid;
+  background-color: var(--main);
 
 
 }
@@ -247,7 +239,7 @@ img{
   display: flex;
   align-items: end;
   justify-content: center;
-  border-top: 4 solid black ;
+  border-top: 4 solid var(--secondary) ;
   height: 40%;
   overflow: hidden;
 }
@@ -307,10 +299,8 @@ img{
 }
 
 #rules{
-  color: rgb( 20,20,20);
-  border: 1px black solid;
+  border: 1px var(--secondary) solid;
   border-radius: 20px;
-  background-color: rgba(235, 235, 253, 0.3);
 
 }
 #rule{
@@ -319,11 +309,11 @@ img{
 }
 
 #silo{
-  border-top: 4px black solid;
+  border-top: 4px var(--secondary) solid;
  flex-direction: column;
  justify-content:space-evenly;
  width: calc(70vw - 10px);
- height: 10px;
+ height: calc(7% - 1px);
 }
 
 #rulez{
