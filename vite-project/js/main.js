@@ -1,234 +1,246 @@
 import {array} from "./array";
-
-
-async function test(input){
-  try{
-  const response = await fetch(input)
-  const data = await response.json(); 
-  console.log(data)
-}
-catch(error){
-  console.log(error)
-}
-}
-
-
-test(array[0].u)
+import { DOMSelectors } from "./doms";
 
 
 
-const DOMSelectors = {
-  button1: document.getElementById("start"),
-  button2: document.getElementById("button2"),
-  form: document.getElementById("value"),
-  gal: document.getElementById("gal"),
-  hints: document.getElementById("hints"),
-  every: document.getElementById("every"),
-}
+//Math.floor(Math.random() * 648) + 1
 
-stuff.style.display = "none";
-let html = DOMSelectors.every.innerHTML
-let completeList = false
-
-function restart(text,pokeName,id){
-  usedHints = []
-  lives = 6
-DOMSelectors.every.innerHTML = ""
-DOMSelectors.gal.innerHTML = "" 
-if(id != null){
-DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"></img></a>`)}
-document.getElementById("hints").innerHTML = ""
-DOMSelectors.every.insertAdjacentHTML("beforeend", `
-  <h1>${text} </h1>
-  <form class="cool">
-  <button id="start">Start Game!</button>
-  </form>`)
-document.getElementById("start").addEventListener("click", function(event) {
-  event.preventDefault()
-  document.getElementById("every").innerHTML = ""
-  DOMSelectors.every.insertAdjacentHTML("beforeend", html)
-  dropSer() 
-  DOMSelectors.gal.innerHTML = ""
-    getData(input)
-  stuff.style.display = "block";
-  document.getElementById("button2").addEventListener("click", function(event) {
-    event.preventDefault()
-    console.log(document.getElementById("dropdown").value)
-    getData(input,document.getElementById("value").value)
-})
-})
-}
-
-
-let input = Math.floor(Math.random() * 648) + 1
-let lives = 6
+let sound
+let input = 25
+let lives = 7
 let usedHints = []
+let guessList = []
+let execpt = ["ho-oh","mr-mime","porygon-z","nidoran-m","nidoran-f"]
+let wins = 0 
+let losses = 0
+let games = 0
+let spriteMode = 0
+let sprites = ""
 
 
 
-
-async function getData(input,guess){
-  let URL = `https://pokeapi.co/api/v2/pokemon/${input}`
-  let areas = `https://pokeapi.co/api/v2/pokemon/${input}/encounters`
-  let details = `https://pokeapi.co/api/v2/pokemon-species/${input}`
-  let evo = `https://pokeapi.co/api/v2/pokemon-species/${input}`
-  try {
-      const response = await fetch(URL)
-      const data = await response.json(); 
-      const response2 = await fetch(areas)
-      const data2 = await response2.json();
-      const response3 = await fetch(details)
-      const data3 = await response3.json();
-      let total = 0
-      
-      cool(data,data2,data3,total,guess)
-  } catch (error) { 
-    console.log(error)
-
-        }
- 
-}
-
-function cool(data,data2,data3,total,guess){
-    data.stats.forEach(stat =>{
-        total = total + stat.base_stat
-      })
-      console.log(guess)
-      let choices = [
-        {
-          data: data3.evolves_from_species != null,
-          text: "This Pokemon's Has Evolved: ",
-      },
-          {
-              data: data3.shape.name,
-              text: "This Pokemon's Shape Is: ",
-          },
-          {
-            data: data.types,
-            text: "One Possible Type Of This Pokemon is ",
-            route: ["type","name"],
-        },
-          {
-            data: data3.capture_rate,
-            text: "This Pokemon Has A Capture Rate Of: ",
-        },
-          {
-            data: total,
-            text: "This Pokemon Has A Base Stat Total Of ",
-        },
-      {
-        data: data3.flavor_text_entries,
-        text: "Entry: ",
-        route: ["flavor_text"]
-    },
-          {
-            data: data3.color.name,
-            text: "This Pokemon's Color Is ",
-        },
-          {
-            data: data2,
-            text: "One Route This Pokemon Can Be Found In Is: ",
-            route: ["location_area","name"],
-            alt: "This Pokemon Cannot Be Found In The Wild",
-        },
-          {
-              data: data.weight/10,   
-              text: "The Weight of This Pokemon, in Kilograms, is ",
-          },
-          {
-              data: data.abilities,
-              text: "One Possible Ability Of This Pokemon is ",
-              route: ["ability","name"],  
-          },
-          {
-              data: data.moves,
-              text: "One Possible Move Of This Pokemon is ",
-              route: ["move","name"],
-          },
-          {
-              data: data.height/10,
-              text: "The Height of This Pokemon, in Meters, is ",
-          },
-          {
-              data: data.held_items,
-              text: "This Pokemon Can Be Found In The Wild Holding ",
-              route: ["item","name"],
-              alt: "This Pokemon Cannot Hold A Held Item In The Wild",
-          },
-          {
-              data: data.id,
-              text: "The Pokemon's National Dex Number is ",
-          },
-      ]
-      console.log(data.name)
-      if(guess === data.name){
-        newGame("You Won! The Pokemon Is",data)
-      }
-  else if(lives < 0){
-    newGame("You Lost :(. The Pokemon Was",data)
+async function test(choice,guess){
+  try{
+  const response = await fetch(choice.u + input + choice.back)
+  const data = await response.json(); 
+  const response2 = await fetch(`https://pokeapi.co/api/v2/pokemon/` + input)
+  const data2 = await response2.json(); 
+  guess = guess.toLowerCase()
+  if(guess == data2.name|| execpt.includes(data2.name) != true && guess == data2.name.split("-")[0]){
+    wins++
+    games++
+    newGame("You Won! It's ",data2.name,data2.id,data2)
+    return wins
   }
+  else if(lives == 0){
+    games++
+    newGame("The Pokemon Was ",data2.name,data2.id,data2)
+  } 
   else{
-    let pick = choices[Math.floor(Math.random() * choices.length)]
-    if(typeof pick.data == "number"|| typeof pick.data == "string" || typeof pick.data == "boolean" || pick.data == "true"){
-      console.log(pick.data)  
-      insert(pick.text,pick.data,data)
-    }
-    else if(pick.data == ""){
-      insert(pick.alt,"",data)
+      let newG = guess
+    if(guess == "porygon-z"||guess == "mr-mime"||guess == "ho-oh"){
+       newG = guess.replaceAll("-","")
     }
     else{
-    let ran = Math.floor(Math.random() * Object.keys(pick.data).length)
-    console.log(pick.data[ran])
-    lastOne(pick.data[ran],pick,0,data)
+       newG = guess.split("-")[0] 
+    }
+    if(guessList.includes(newG) == false){
+      guessList.push(newG.toLowerCase())
+      console.log(document.getElementById("silo"))
+    document.getElementById("silo").insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${newG}.gif"alt="${newG}"></img>`)
   }
-}
-}
+  lastJuan(data,choice,0)
+}}
+catch(error){
+  uhoh(error)
+}}
 
-function newGame(text,data){
-  let complete = text + " " + data.name
-  stuff.style.display = "none";
-  DOMSelectors.every.innerHTML = ""
-  document.getElementById("lives").innerHTML = ""
-  document.getElementById("hints").innerHTML = ""
-  document.getElementById("every").insertAdjacentHTML("beforeend", `<h1>${text} ${data.name}</h1> `) 
-  input = Math.floor(Math.random()* 648) + 1
-  if(data.name == "porygon-z"||data.name == "mr-mime"){
-    let pokeName = data.name
-    restart(complete,pokeName,data.id)
+
+//Add average guess win
+
+function lastJuan(start,choice,p,content){ 
+  console.log(start)
+  if(start == undefined ){
+    console.log(choice)
+  }
+  if(start == "" ||start === false){
+    test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
+    return start  
+  }
+  if(start == undefined || start === true){
+    insert(choice.alttext,"","","hinttext",choice.split)
+    return start
+  }
+  if(choice.route[p] != undefined){
+    if(choice.route[p] == "random"){
+      if(choice.rand == "start"){
+        lastJuan(Object.values(start)[Math.floor(Math.random() * Object.keys(start).length)],choice,p+1)
+      }
+      else{
+      Object.keys(start).forEach(key =>{
+        if(key == choice.rand){
+          let steve = (Object.values(start)[Object.keys(start).indexOf(choice.rand)])
+          lastJuan(steve[Math.floor(Math.random() * Object.keys(steve).length)],choice,p+1)
+        }})}}
+  Object.keys(start).forEach(key => {
+    if(key.includes(choice.route[p])){
+      let next = Object.values(start)[Object.keys(start).indexOf(key)]
+      lastJuan(next,choice,p+1)}})}
+else{
+  if(choice.unitc == true){
+    insert(choice.text,start/10,choice.tend,"hinttext",choice.split)
+    return start/10
   }
   else{
-    let pokeName = data.name.split('-')
-    restart(complete,pokeName,data.id)
-  // document.getElementById("gal").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><span class="imgbor"><img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png"></img><img class="img" src="https://www.serebii.net/sunmoon/pokemon/${data.id}.png</img></a></span>`)
-  }
+  insert(choice.text,start,choice.tend,"hinttext",choice.split)
+  return start/10
+}}}
+
+
+
+
+function insert(text,va,end,id,split){
+let ratio = "Winrate: " + Math.round(wins/games*10000)/100 + "%"
+if(ratio == "Winrate: NaN%"){
+  ratio = "No Games Played"
 }
+let comb = text + va + end
+if(usedHints.includes(comb) == false){
+    document.getElementById("hints").insertAdjacentHTML("beforeend", `<h2 class="${id}">${comb.replaceAll('-', split).toUpperCase()}</h2>`)
+lives--
+clear([document.getElementById("lives")])
+document.getElementById("lives").insertAdjacentHTML("beforeend", `<p id="livecount">Lives: ${lives+1}</p><p>Wins: ${wins}</p><p>Losses: ${games-wins}</p><p>Games: ${games}</p><p>${ratio}</p>   `)
+usedHints.push(comb)
 
-
-
-function lastOne(start,pick,fi,data){
-    Object.keys(start).forEach(key => {
-      if(key.includes(pick.route[fi])){
-        let i = Object.keys(start).indexOf(key)
-        let next = Object.values(start)[i]
-        if(typeof next == "object"){
-          lastOne(next,pick,fi+1,data)
-        }
-        else{
-          insert(pick.text,next,data)
-        }}});}
-
-
-function insert(text,va,data){
-  let comb = text + va
-  if(usedHints.includes(comb) == false){
-  document.getElementById("hints").insertAdjacentHTML("beforeend", `<h1 class="hinttext">${comb}</h1>`)
- lives--
- document.getElementsByClassName(".livetext").innerHTML
- document.getElementById("lives").textContent = lives + 2
- usedHints.push(comb)
 }
 else{
-  getData(input)
+test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
+}
+}
+      
+
+
+function restart(text,pokeName,id){
+  guessList = []
+  usedHints = []
+  lives = 7
+
+document.getElementById("options").insertAdjacentHTML("beforeend", `
+<div id="gform">
+  <form class="cool">
+  <div id="things"></div>
+  <button id="start">Start Game!</button><button id="sprites">Sprite Switch</button></div>
+</form>`)
+document.getElementById("sprites").addEventListener("click", function(event) {
+  event.preventDefault()
+  spriteSwitch()
+})
+  
+
+
+
+document.getElementById("start").addEventListener("click", function(event) {
+  event.preventDefault()
+  clear([gal])
+  document.getElementById("gal").insertAdjacentHTML("beforeend",`   
+  <div id="left">
+  <div id="lives">
+  
+  </div>  
+  <div id="monster">
+  <form id="control">
+  <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pokemon-black-and-white-super-music-collection/ajqygfxmtt/2-23.%20Opelucid%20City%20Gym%20%28Pok%C3%A9mon%20Black%29.mp3"><label>Opelucid City (Black)</label><br>
+  <input type="radio" class="check" name="music" value="https://dl.vgmdownloads.com/soundtracks/pokemon-black-and-white-super-music-collection/bfucohurbq/2-24.%20Opelucid%20City%20Gym%20%28Pok%C3%A9mon%20White%29.mp3"><label>Opelucid City (White)</label><br>
+  <input type="radio" class="check"  name="music" value="https://vgmsite.com/soundtracks/pokemon-omega-ruby-and-alpha-sapphire-nintendo-3ds-gamerip/rkkmogqn/103%20-%20Zinnia.mp3"><label>Zinna</label><br>
+  <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pok-mon-diamond-pok-mon-pearl-super-music-collection-2006/bayywwhhmv/81%20-%20Mt.%20Coronet.mp3"><label>Mt. Coronet</label><br>
+  <input type="radio" class="check"  name="music" value="  https://dl.vgmdownloads.com/soundtracks/pok-mon-heartgold-pok-mon-soulsilver-greatest-sounds-2009/niaceafdpi/1-15.%20Pok%C3%A9mon%20Center.mp3"><label>Pokemon Center (HGSS)</label><br>
+  <input type="radio" class="check"  name="music" value=""><label>No Music</label><br>
+</form> 
+
+  
+  </div>  
+  </div>
+  <div id="mid"><form id="every">
+  <label> .</label>
+  <input type="text" id="value" autocomplete="off" autocapitalize="on"><br>
+  <label> .</label>
+  <select id="dropdown">
+    <option value="">Waiting For API to Load...</option>
+  </select><br>
+  <input type="submit" id="button2" value="Guess">
+</form> <div id="ibor"><img class="blur" id="blur" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${input}.svg"></div>
+</div></div>
+  <div id="right">  
+  <div id="hints">
+
+  </div>
+  <div id="silo">
+  </div>
+  </div>
+ `)
+  //   <div id="silo"></div>
+  //</div>
+  document.getElementById("monster").insertAdjacentHTML("beforeend", `<form id="ea">
+<button id="sprites">Sprite Switch</button>
+</form>`)
+document.getElementById("sprites").addEventListener("click", function(event) {
+  event.preventDefault()
+  spriteSwitch()
+})
+  if(pokemonList.length == 649){
+    dropSer()
+  }
+
+  entry()
+  document.getElementById("control").addEventListener("click", function(event) {
+    if(sound != undefined){    sound.pause()}
+  document.querySelectorAll(".check").forEach(check => {
+    if(check.checked){
+        console.log("ea")
+      console.log(check.value)
+      sound = new Audio(check.value)
+      console.log(sound)
+      sound.play()
+      sound.loop = true
+    }
+  })
+})
+  document.getElementById("button2").addEventListener("click", function(event) {
+    event.preventDefault()
+    if(guessList.includes(document.getElementById("value").value.toLowerCase()) == false && document.getElementById("value").value != ""){
+    test(array[Math.floor(Math.random()* array.length)],document.getElementById("value").value)
+  }
+  else{
+    if(document.getElementById("mess") == null){
+      document.getElementById("lives").insertAdjacentHTML("afterbegin",`<div id="mess"><h2 id="error">Guess A Valid Pokemon!</h2></div>`)
+    }
+
+  }
+})
+})
+}
+
+
+function clear(list){
+  list.forEach(item => {
+    if(item != null){
+      item.innerHTML = ""}
+    })
+  }
+
+async function entry(){
+  try{
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/` + input)
+  const data = await response.json(); 
+  let i = 0
+  while(data.flavor_text_entries[i].language.name != "en"){
+    i++
+  }
+  let censored = data.flavor_text_entries[i].flavor_text.toUpperCase().replaceAll(data.name.toUpperCase(),"XXXX").replaceAll(""," ")
+  insert("Pokedex Entry: ", censored,"","entry"," ")
+}
+catch(error){
+  uhoh(error)
 }
 }
 
@@ -236,7 +248,6 @@ else{
 let pokemonList = []
 
  async function collect(){
-  console.log("epic")
   try {
     for(let f=1;f<650;f++){
       let URL = `https://pokeapi.co/api/v2/pokemon/${f}`
@@ -245,39 +256,101 @@ let pokemonList = []
       pokemonList.push(data.name)
       }
       pokemonList.sort()
-      dropSer()
+      if(document.getElementById("dropdown") != null){dropSer()}
     }
     catch (error) { 
-      console.log("eaeaea")
+      console.log(error)
           }}
 
           collect()
 
-async function dropSer(){
- try{ document.getElementById("dropdown").innerHTML = ""
+ function dropSer(){
+  document.getElementById("dropdown").innerHTML=""
     pokemonList.forEach(pokemon => {
-      document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon.toUpperCase()}</option>`) 
+      if(execpt.includes(pokemon)){
+        document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon}">${pokemon.toUpperCase()}</option>`)}
+      else{
+        document.getElementById("dropdown").insertAdjacentHTML("beforeend", `<option value="${pokemon.toUpperCase().split("-")[0]}">${pokemon.toUpperCase().split("-")[0]}</option>`) 
+       }
     })
     document.getElementById("dropdown").addEventListener("click", function(event) {document.getElementById("value").value = document.getElementById("dropdown").value })
-  } 
-  catch (error) { 
-    console.log("Waiting For Game Start...")
-        }
+
+  }
+
+
+function newGame(text,name,id,data){
+  document.getElementById("gal").innerHTML = ""
+  document.getElementById("gal").insertAdjacentHTML("afterbegin", `     
+  <div id="top">
+    <div id="options"></div>
+</div>
+`)
+  let showName = name.split("-")[0]
+  let pokeName = name.split("-")[0]
+  if(name == "porygon-z"||name == "mr-mime"||name == "ho-oh"){
+    pokeName = name
+    showName = name.replaceAll("-","")
+  }
+  let complete = text + " " + name
+  // document.getElementById("every").insertAdjacentHTML("beforeend", `<h2>${text} ${name}</h2> `) 
+  //DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
+  document.getElementById("options").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="${data.sprites.other.dream_world.front_default}" alt="${pokeName}"</img></a>
+  <div id="cont"> 
+  <div id="title">${text}${data.name.toUpperCase()}</div>
+  <div id="info">
+  <div id="types"></div>
+  <div class="wintext" id="stats">
+ 
+</div>
+</div>
+</div>
+`)
+
+data.stats.forEach(stat =>{document.getElementById("stats").insertAdjacentHTML("beforeend",`<p>${stat.stat.name.toUpperCase().replaceAll("-"," ")}: ${stat.base_stat}</p>`)})
+for(let i =0; i < data.types.length; i++){
+  document.getElementById("types").insertAdjacentHTML("beforeend",`<p>Type ${i + 1}: ${data.types[i].type.name}</p>`)
+}
+for(let i =0; i < data.abilities.length; i++){
+  document.getElementById("types").insertAdjacentHTML("beforeend",`<p>Ability ${i + 1}: ${data.abilities[i].ability.name.replaceAll("-"," ")}</p>`)
+}
+infosert([{info: data.weight/10, text:"Weight:",back:"kg"},{info: data.height/10, text:"Height:",back:"m"},{info: data.id, text:"Pokedex Number:",back:""}])
+
+
+  input = Math.floor(Math.random()* 648) + 1
+  if(name == "porygon-z"||name == "mr-mime"){
+    restart(complete,name,id)
+  }
+  else{
+    restart(complete,name.split("-")[0],id)
+  }
 }
 
 
 
-console.log(pokemonList)
-
-
-
-
-
-
-
-
-
-
-
-
 restart("Press The Button Below To Start!","azumaril",null)
+
+
+function spriteSwitch(){
+  // pokemonList.forEach(mon => {  lifeHasSmitedMe(mon)})
+  document.body.classList.add("mode" + spriteMode%2 )
+  document.body.classList.remove("mode" + (spriteMode+1)%2 )
+   sprites = ["gen5",""][spriteMode%2]
+   if(document.getElementById("silo") != null){
+   document.getElementById("silo").innerHTML = ""
+   guessList.forEach(guess => {
+    document.getElementById("silo").insertAdjacentHTML("beforeend",`<img id="${sprites}" class="guess" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${guess}.gif" alt="${guess}"></img>`)
+  })}
+   spriteMode++
+}
+
+function uhoh(e){
+  console.log(e)
+  document.body.innerHTML = ""
+  document.body.insertAdjacentHTML("beforeend",`<img id="uhoh" alt="uhoh" src="https://i.pinimg.com/474x/9f/da/71/9fda71dd4654f7a296c0d12c8776b4ce.jpg"</img>`)
+}
+
+function infosert(ob){
+  for(let i =0; i < ob.length; i++){
+    document.getElementById("types").insertAdjacentHTML("beforeend",`<p>${ob[i].text} ${ob[i].info} ${ob[i].back}</p>`)
+  }
+}

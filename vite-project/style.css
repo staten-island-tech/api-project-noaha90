@@ -1,65 +1,331 @@
-:root{
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: rgba(0,0,205,0.1);
-   /* background: url(https://i.redd.it/ayi0xce9yb7a1.gif);  */
-  background-size: cover;
-  color: rgb(10,20,200);
-  text-align: center;
-display:flexbox;
-} 
 
-button{
-  height: 5%;
-  width: 10%;
-  margin: 10px;
+#top{
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.guess{
+  height: 50px;
+  overflow: hidden;
 }
 
-.img{
-  justify-self:inherit;
-  border: 1px solid black;
-   height: 128px;
- /* filter: contrast(5%) blur(12px); */
-background-color: rgba(0,0,205,0.1);
+.uw12{
+  height: 50px;
 }
 
-
-.img:hover{
-  transition: .1s;
-  background-color: rgba(50,50,70,.2);
-  border-color: darkgoldenrod;
+#control{
+  font-size: 1rem;
 }
 
-
-
-#dropdown, #value{
-  color: gray;
-  text-align: center;
-}
-
-#hints,#lives{
-  border: 4px black solid;
-  border-radius: 20px;
-  background-color: rgba(255,255,255,.9);
-  width: 25%;
-  position: absolute;
-  min-height: 75%;
+#uhoh{
   
 }
 
+:root{
+  justify-content: center;
+  margin: 0px;
+}
+
+
+#up{
+  height: 50%;
+  display: flex;
+}
+
+
+.hinttext:hover,.entry:hover{
+  transition: .25s;
+  background-color: rgba(197, 68, 223,0.1)
+}
+.hinttext{
+  margin-top: 20px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+
+#error{
+  color:maroon;
+}
+
+.entry{
+  font-size: 1.5rem;
+}
+
+#monster{
+  border-top:0px black solid;
+  height: calc(40% - 14px);
+}
+:root{
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+  display:flexbox;
+  transition: 2s;
+  font: 400;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+
+
+button{
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#main{
+  display: flex;
+  justify-content:space-evenly;
+  align-self:first baseline;
+
+  width: 100;
+  height: 100%;
+}
+
+#gal{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+#left{
+  height: calc(100% - 1%);
+  font-size: .2rem;
+  width: 25%;
+
+}
+
+#text{
+  background-color: bisque;
+}
+
+button:hover{
+  transition: .75s;
+  transform:scale(1.1)
+}
+
+#value{
+  width: 20%;
+  height: 3.5%;
+  border: 2px black solid;
+  border-radius: 5px;
+}
+
+
+
+#stuff{
+  height: 110%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#starttext{
+  color: white;
+  font-weight: 100;
+  animation: fade ease .5s;
+  font-size: 3rem;
+  border-radius: 10px
+}
+
+.mode0{
+  transition: .5s;
+  background: url(https://play.pokemonshowdown.com/fx/bg-route.png) ;
+  background-size: cover;
+}
+
+#sprites{
+  background-color: black;
+}
+
+.mode1{
+  transition: .5s;
+      background: url(https://i.imgur.com/zVs5MgS.png); 
+      background-size: cover; 
+}
+
+
+
+.mode2{
+  background: url(https://i.redd.it/ayi0xce9yb7a1.gif); 
+  background-size: cover; 
+}
+
+
+
+
+#guess{
+  height: 20px;
+  width: auto;
+}
+
+
+
+
+
+@keyframes fade {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+
+
+#start{
+  border-color: black;
+  color:black;
+}
+
+
+img{
+  height: 30%;
+  width: auto;
+  margin-inline: 2.5%;
+}
+
+.img:hover{
+  transition: .4s;
+  transform: scale(1.1);
+  border-color: darkgoldenrod;
+}
+
+#title{
+  font-size: 3rem;
+  margin-bottom: 4vh  ;
+  width: 100%;
+
+}
+#win{
+  background-color: aqua;
+}
+
+
+#dropdown, #value{
+  margin-top: 2.5%;
+  text-align: center;
+  height: 50%;
+}
+
+
+#value{
+  width: 70%;
+}
+#hints,#lives,#monster,#mid,#silo,#winbox,#options{
+  min-height: 50px;
+
+  color: rgb( 20,20,20);
+  border: 4px black solid;
+  background-color: rgba(255,255,255,.75);
+
+
+}
+
+#info,#title{
+  justify-content: space-evenly;
+
+  display: flex;
+  
+}
+
+#blur{
+  max-height: 80%;
+  height: 100%;
+  filter:brightness(3%) blur(1vw);
+}
+
+#ibor{  
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  border-top: 4 solid black ;
+  height: 40%;
+  overflow: hidden;
+}
+
+#info{
+  font-size: 1.2rem;
+}
+#winbox{
+  height: 100%;
+  width: 30%;
+}
+
+#options{
+  text-transform: uppercase;
+  height: 100%;
+  width: 100%;
+}
+
+#bottom{
+  width: 95%;
+}
+
+#mid{
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+  width: 30%;
+  height: calc(90% - 3px);
+}
+#bot{
+  width: 100%;}
+
 #lives{
-  font-size: 100px;
-  left: 0%;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  border-bottom: 0px;
+  font-size: 1.25rem;
+  height: 60%;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
 }
 
 #hints{
-  font-size: 10px;
-  right: 0%;
+  align-items: stretch;
+  height: calc(90% - 3px);
   border-bottom-right-radius: 0px;
   border-top-right-radius: 0px;
 }
 
+#right{
+  display: flex;
+  flex-direction: column;
+  align-items:end;
+  width: 40%;
+  height: 100%;
+}
 
+#rules{
+  color: rgb( 20,20,20);
+  border: 1px black solid;
+  border-radius: 20px;
+  background-color: rgba(235, 235, 253, 0.3);
 
+}
+#rule{
+  font-size: 1.5rem;
+  margin: 3vh;
+}
 
+#silo{
+  border-top: 4px black solid;
+ flex-direction: column;
+ justify-content:space-evenly;
+ width: calc(70vw - 10px);
+ height: 10px;
+}
+
+#rulez{
+  font-size: 5rem;
+}
