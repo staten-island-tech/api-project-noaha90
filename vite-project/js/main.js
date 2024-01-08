@@ -6,7 +6,7 @@ import { DOMSelectors } from "./doms";
 //Math.floor(Math.random() * 648) + 1
 
 let sound
-let input = 25
+let input = Math.floor(Math.random() * 648) + 1
 let lives = 7
 let usedHints = []
 let guessList = []
