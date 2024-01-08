@@ -304,10 +304,13 @@ img{
 
 }
 #rule{
-  font-size: 1.5rem;
   margin: 3vh;
 }
 
+#wompwomp{
+  color: var(--main);
+  background-color: var(--secondary);
+}
 #silo{
   border-top: 4px var(--secondary) solid;
  flex-direction: column;

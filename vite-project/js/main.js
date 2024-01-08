@@ -344,7 +344,7 @@ function spriteSwitch(){
 function uhoh(e){
   console.log(e)
   document.body.innerHTML = ""
-  document.body.insertAdjacentHTML("beforeend",`<img id="uhoh" alt="uhoh" src="https://i.pinimg.com/474x/9f/da/71/9fda71dd4654f7a296c0d12c8776b4ce.jpg"</img>`)
+  document.body.insertAdjacentHTML("beforeend",`<h1 id="wompwomp">${e}</h1>`)
 }
 
 function infosert(ob){
