@@ -53,8 +53,6 @@ catch(error){
 }}
 
 
-//Add average guess win
-
 function lastJuan(start,choice,p,content){ 
   console.log(start)
   if(start == undefined ){
@@ -154,8 +152,6 @@ document.getElementById("start").addEventListener("click", function(event) {
   <input type="radio" class="check"  name="music" value="  https://dl.vgmdownloads.com/soundtracks/pok-mon-heartgold-pok-mon-soulsilver-greatest-sounds-2009/niaceafdpi/1-15.%20Pok%C3%A9mon%20Center.mp3"><label>Pokemon Center (HGSS)</label><br>
   <input type="radio" class="check"  name="music" value=""><label>No Music</label><br>
 </form> 
-
-  
   </div>  
   </div>
   <div id="mid"><form id="every">
@@ -170,14 +166,12 @@ document.getElementById("start").addEventListener("click", function(event) {
 </div></div>
   <div id="right">  
   <div id="hints">
-
   </div>
   <div id="silo">
   </div>
   </div>
  `)
-  //   <div id="silo"></div>
-  //</div>
+
   document.getElementById("monster").insertAdjacentHTML("beforeend", `<form id="ea">
 <button id="sprites">Sprite Switch</button>
 </form>`)
