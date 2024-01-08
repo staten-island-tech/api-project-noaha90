@@ -5,18 +5,15 @@ import { DOMSelectors } from "./doms";
 
 //Math.floor(Math.random() * 648) + 1
 
-let sound
+
 let input = Math.floor(Math.random() * 648) + 1
 let lives = 7
 let usedHints = []
 let guessList = []
 let execpt = ["ho-oh","mr-mime","porygon-z","nidoran-m","nidoran-f"]
-let wins = 0 
-let losses = 0
-let games = 0
-let spriteMode = 0
+let wins, games, spriteMode
+wins = games = spriteMode = 0
 let sprites = ""
-
 
 
 async function test(choice,guess){
@@ -140,6 +137,7 @@ document.getElementById("sprites").addEventListener("click", function(event) {
 
 
 document.getElementById("start").addEventListener("click", function(event) {
+  let sound
   event.preventDefault()
   clear([gal])
   document.getElementById("gal").insertAdjacentHTML("beforeend",`   
