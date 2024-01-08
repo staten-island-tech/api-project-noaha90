@@ -240,7 +240,7 @@ img{
 #blur{
   max-height: 80%;
   height: 100%;
-  filter:brightness(3%) blur(1vw);
+  filter:brightness(3%) blur(1.5vw);
 }
 
 #ibor{  
