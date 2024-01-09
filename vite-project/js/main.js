@@ -6,7 +6,7 @@ import { DOMSelectors } from "./doms";
 //Math.floor(Math.random() * 648) + 1
 
 
-let input = Math.floor(Math.random() * 648) + 1
+let input = Math.floor(Math.random() * 385) + 1
 let lives = 7
 let usedHints = []
 let guessList = []
@@ -306,7 +306,7 @@ for(let i =0; i < data.abilities.length; i++){
 infosert([{info: data.weight/10, text:"Weight:",back:"kg"},{info: data.height/10, text:"Height:",back:"m"},{info: data.id, text:"Pokedex Number:",back:""}])
 
 
-  input = Math.floor(Math.random()* 648) + 1
+  input = Math.floor(Math.random()* 385) + 1
   if(name == "porygon-z"||name == "mr-mime"){
     restart(complete,name,id)
   }
