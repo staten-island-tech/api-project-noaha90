@@ -277,15 +277,13 @@ function newGame(text,name,id,data){
     <div id="options"></div>
 </div>
 `)
-  let showName = name.split("-")[0]
   let pokeName = name.split("-")[0]
   if(name == "porygon-z"||name == "mr-mime"||name == "ho-oh"){
     pokeName = name
     showName = name.replaceAll("-","")
   }
   let complete = text + " " + name
-  // document.getElementById("every").insertAdjacentHTML("beforeend", `<h2>${text} ${name}</h2> `) 
-  //DOMSelectors.gal.insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="https://play.pokemonshowdown.com/sprites/${sprites}ani/${showName}.gif"</img></a>`)
+  
   document.getElementById("options").insertAdjacentHTML("beforeend", `<a href="https://pokemondb.net/pokedex/${pokeName}"><img class="img" id="${pokeName}" src="${data.sprites.other.dream_world.front_default}" alt="${pokeName}"</img></a>
   <div id="cont"> 
   <div id="title">${text}${data.name.toUpperCase()}</div>
