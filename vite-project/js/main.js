@@ -222,7 +222,7 @@ function inputSelector(genList){
   return Math.floor(Math.random()* Number(picked[1])) + Number(picked[0])
 }
 else{
-  Math.floor(Math.random() * 649) + 1
+  return Math.floor(Math.random() * 649) + 1
 }
 }
 
