@@ -141,18 +141,21 @@ document.getElementById("start").addEventListener("click", function(event) {
   })
   input = inputSelector(genList)
   clear([gal])
+  //https://dl.vgmdownloads.com/soundtracks/pok-mon-diamond-pok-mon-pearl-super-music-collection-2006/kqdhthcacp/82%20-%20Spear%20Pillar.mp3
   document.getElementById("gal").insertAdjacentHTML("beforeend",`   
   <div id="left">
   <div id="lives">
   
   </div>  
   <div id="monster">
+  <h4>Options</h4>
   <form id="control">
   <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pokemon-black-and-white-super-music-collection/ajqygfxmtt/2-23.%20Opelucid%20City%20Gym%20%28Pok%C3%A9mon%20Black%29.mp3"><label>Opelucid City (Black)</label><br>
   <input type="radio" class="check" name="music" value="https://dl.vgmdownloads.com/soundtracks/pokemon-black-and-white-super-music-collection/bfucohurbq/2-24.%20Opelucid%20City%20Gym%20%28Pok%C3%A9mon%20White%29.mp3"><label>Opelucid City (White)</label><br>
   <input type="radio" class="check"  name="music" value="https://vgmsite.com/soundtracks/pokemon-omega-ruby-and-alpha-sapphire-nintendo-3ds-gamerip/rkkmogqn/103%20-%20Zinnia.mp3"><label>Zinna's Theme(ORAS)</label><br>
   <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pok-mon-diamond-pok-mon-pearl-super-music-collection-2006/bayywwhhmv/81%20-%20Mt.%20Coronet.mp3"><label>Mt. Coronet (DPPT)</label><br>
   <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pok-mon-heartgold-pok-mon-soulsilver-greatest-sounds-2009/niaceafdpi/1-15.%20Pok%C3%A9mon%20Center.mp3"><label>Pokemon Center (HGSS)</label><br>
+  <input type="radio" class="check"  name="music" value="https://dl.vgmdownloads.com/soundtracks/pok-mon-diamond-pok-mon-pearl-super-music-collection-2006/kqdhthcacp/82%20-%20Spear%20Pillar.mp3"><label>Spear Pillar(DPPT)</label><br>
   <input type="radio" class="check"  name="music" value="https://vgmsite.com/soundtracks/pokemon-legends-arceus-complete-soundtrack/selpmdhksy/1-15%20-%20Obsidian%20Fieldlands%202.mp3"><label>Obsidian Fieldlands (PLA)</label><br>
   <input type="radio" class="check"  name="music" value=""><label>No Music</label><br>
 </form> 
