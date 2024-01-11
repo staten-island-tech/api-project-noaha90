@@ -95,6 +95,8 @@ else{
 
 
 function insert(text,va,end,id,split){
+  console.log((lives/5)+.5)
+document.getElementById('blur').style.filter = `brightness(3%) blur(${(lives/4)+.7}vw)`
 let ratio = "Winrate: " + Math.round(wins/games*10000)/100 + "%"
 if(ratio == "Winrate: NaN%"){
   ratio = "No Games Played"
